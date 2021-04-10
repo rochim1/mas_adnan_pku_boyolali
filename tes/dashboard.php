@@ -205,7 +205,7 @@ RS PKU AISYIYAH BOYOLALI </title>
             break;
         case 'tambah_petugas':
             # code...
-            include 'Petugas/tambah.php';
+            // include 'Petugas/tambah.php';
             break;
         case 'edit_petugas':
             # code...

@@ -1,7 +1,7 @@
 <?php
 //include file config.php
+error_reporting(0);
 include('/config/config.php');
-
 //jika benar mendapatkan GET id dari URL
 if(isset($_GET['no_rm'])){
 	//membuat variabel $id yang menyimpan nilai dari $_GET['id']
@@ -12,8 +12,12 @@ if(isset($_GET['no_rm'])){
 
 	//jika query menghasilkan nilai > 0 maka eksekusi script di bawah
 	if(mysqli_num_rows($cek) > 0){
+		// echo $_GET['no_rm'];
+		
 		//query ke database DELETE untuk menghapus data dengan kondisi id=$id
 		$del = mysqli_query($koneksi, "DELETE FROM pasien WHERE no_rm='$no_rm'") or die(mysqli_error($koneksi));
+		
+		// tidak bisa menghandle error untuk row yang memiliki relasi;
 		if($del){
 			echo '<script>alert("Berhasil menghapus data."); document.location="dashboard.php?page=tampil_pasien";</script>';
 		}else{

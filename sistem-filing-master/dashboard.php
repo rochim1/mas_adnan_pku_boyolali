@@ -20,7 +20,12 @@ require_once('config/config.php');
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="assets/images/favicon.png" type="image/ico" />
-
+  <style>
+    #myTable tr td {
+      padding: 10px 18px;
+      padding-bottom: 0px;
+    }
+  </style>
   <title> SISTEM INFORMASI PENGOLAHAN DATA DI BAGIAN FILING
     RS PKU AISYIYAH BOYOLALI </title>
 
@@ -386,8 +391,17 @@ require_once('config/config.php');
 
   <script>
     // alert('berhasil');
+
+
+
     $(document).ready(function() {
-      $('#myTable').DataTable();
+      $('#myTable').dataTable({
+        aLengthMenu: [
+          [25, 50, 100, 200, -1],
+          [25, 50, 100, 200, "All"]
+        ],
+        iDisplayLength: -1
+      });
     });
   </script>
 

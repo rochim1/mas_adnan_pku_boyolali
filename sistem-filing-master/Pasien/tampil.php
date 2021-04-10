@@ -1,6 +1,7 @@
 <?php
 //memasukkan file config.php
 include('/config/config.php');
+error_reporting(0);
 ?>
 
 
@@ -19,6 +20,7 @@ include('/config/config.php');
 			<thead>
 				<tr>
 				
+					<th>No</th>
 					<th>No RM</th>
 					<th>Nama Pasien</th>
 					<th>Tempat Tanggal Lahir</th>
@@ -42,6 +44,7 @@ include('/config/config.php');
 						//menampilkan data perulangan
 						echo '
 						<tr>
+							<td>'.$no++.'</td>
 							<td>'.$data['no_rm'].'</td>
 							<td>'.$data['nm_pasien'].'</td>
 							<td>'.$data['tmp_lahir'].' '.$data['tgl_lahir'].' </td>

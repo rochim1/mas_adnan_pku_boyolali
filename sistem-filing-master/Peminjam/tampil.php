@@ -16,7 +16,7 @@ include('/config/config.php');
 		<table aria-label="Data Peminjam" id="myTable" class="table table-striped jambo_table bulk_action">
 			<thead>
 				<tr>
-
+					<th>No</th>
 					<th>Kode Peminjam</th>
 					<th>Nama Peminjam</th>
 					<th>Alamat</th>
@@ -38,6 +38,7 @@ include('/config/config.php');
 						//menampilkan data perulangan
 						echo '
 						<tr>
+							<td>' . $no++ . '</td>
 							<td>' . $data['kd_peminjam'] . '</td>
 							<td>' . $data['nmpeminjam'] . '</td>
 							<td>' . $data['alamat'] . '</td>

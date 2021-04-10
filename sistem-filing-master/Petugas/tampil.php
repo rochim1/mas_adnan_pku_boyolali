@@ -19,6 +19,7 @@ include('/config/config.php');
 			<thead>
 				<tr>
 
+					<th>NO</th>
 					<th>Kode Petugas</th>
 					<th>Nama Petugas</th>
 					<th>Kontak</th>
@@ -39,6 +40,7 @@ include('/config/config.php');
 						//menampilkan data perulangan
 						echo '
 						<tr>
+							<td>' . $no++ . '</td>
 							<td>' . $data['kd_petugas'] . '</td>
 							<td>' . $data['nm_petugas'] . '</td>
 							<td>' . $data['no_telp'] . '</td>

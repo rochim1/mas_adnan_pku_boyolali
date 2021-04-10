@@ -6,7 +6,7 @@ include('/config/config.php');
 
 <div class="container" style="margin-top:20px">
 	<center>
-		<font size="6">Data Petugas</font>
+		<font size="6">Transaksi Peminjaman DRM</font>
 	</center>
 	<hr>
 	<a href="dashboard.php?page=tambah_peminjaman_DRM"><button class="btn btn-dark right">Tambah Data</button></a>
@@ -17,7 +17,7 @@ include('/config/config.php');
 		<table aria-label="Data Petugas" id="myTable" class="table table-striped jambo_table bulk_action">
 			<thead>
 				<tr>
-					<th>No Pinjam</th>
+					<th>No</th>
 					<th>Tanggal Pinjam</th>
 					<th>Kode Petugas</th>
 					<th>Tujuan Pinjam</th>
@@ -42,7 +42,7 @@ include('/config/config.php');
 						//menampilkan data perulangan
 						echo '
 						<tr>
-							<td>' . $data['no_pinjam'] . '</td>
+							<td>' . $no++ . '</td>
 						
 							<td>' . date("d M Y", strtotime($data['tgl_pinjam'])) . '</td>
 							

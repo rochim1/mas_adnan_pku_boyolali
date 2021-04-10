@@ -19,7 +19,7 @@ include('/config/config.php');
 		<table aria-label="Transaksi Pendaftaran Pasien Rawat Jalan" id="myTable" class="table table-striped jambo_table bulk_action">
 			<thead>
 				<tr>
-					<th>No RM</th>
+					<th>No</th>
 					<th>Nama Pasien</th>
 					<th>Tempat Tanggal Lahir</th>
 					<th>Jenis Kelamin</th>
@@ -42,7 +42,7 @@ include('/config/config.php');
 						//menampilkan data perulangan
 						echo '
 						<tr>
-							<td>' . $data['no_rm'] . '</td>
+							<td>' . $no++ . '</td>
 							<td>' . $data['nm_pasien'] . '</td>
 							<td>' . $data['tmp_lahir'] . ' ' . $data['tgl_lahir'] . ' </td>
 							<td>' . $data['jenis_klm'] . '</td>

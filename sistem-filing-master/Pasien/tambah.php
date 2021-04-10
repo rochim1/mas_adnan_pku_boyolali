@@ -3,8 +3,34 @@
 		<center><font size="6">Tambah Data</font></center>
 		<hr>
 		<?php
+
+			$no_rm = mysqli_query($koneksi, "SELECT no_rm FROM pasien");
+			// $max = mysqli_query($koneksi, "SELECT MAX(no_rm) FROM pasien");
+			
+			if (mysqli_num_rows($no_rm) == 0) {
+				$no_rm = 'RM001';	
+			}else {
+				
+				$last_rm = false;
+				foreach ($no_rm as $key => $value) {
+					$last_rm = $value['no_rm'];
+				}
+				(int)$last_rm = substr($last_rm, 2);  
+				$last_rm++;
+				$num_padded = sprintf("%03d", $last_rm);
+				(string)$no_rm = "RM".$num_padded;
+			}
+			
+			
+
+
+
+
 		if(isset($_POST['submit'])){
-			$no_rm	= $_POST['no_rm'];
+
+			// $no_rm	= $_POST['no_rm'];
+			// no_rm karena field nya di disable maka data ga bsia di post
+			$no_rm = $no_rm; //hehe
 			$nm_pasien	= $_POST['nm_pasien'];
 			$tgl_lahir	= $_POST['tgl_lahir'];
 			$alamat		= $_POST['alamat'];
@@ -12,8 +38,7 @@
 			$pekerjaan		= $_POST['pekerjaan'];
 			$tmp_lahir		= $_POST['tmp_lahir'];
 			$jenis_klm		= $_POST['jenis_klm'];
-			
-
+		
 			$cek = mysqli_query($koneksi, "SELECT * FROM pasien WHERE no_rm='$no_rm'") or die(mysqli_error($koneksi));
 
 			if(mysqli_num_rows($cek) == 0){
@@ -35,7 +60,7 @@
 			<div class="item form-group">
 				<label class="col-form-label col-md-3 col-sm-3 label-align">Nomor RM</label>
 				<div class="col-md-6 col-sm-6 ">
-					<input type="text" name="no_rm" class="form-control" size="4" required placeholder="misal:RM001">
+					<input type="text" name="no_rm" class="form-control" size="4" required placeholder="misal:RM1" value="<?php echo $no_rm?>" disabled>
 				</div>
 			</div>
 			<div class="item form-group">
@@ -60,7 +85,7 @@
 			<div class="item form-group">
 				<label class="col-form-label col-md-3 col-sm-3 label-align">tanggal lahir</label>
 				<div class="col-md-6 col-sm-6">
-					<input type="text" name="tgl_lahir" class="form-control" required placeholder="misal: 1-1-1999">
+					<input type="date" name="tgl_lahir" class="form-control" required placeholder="misal: 1-1-1999">
 				</div>
 			</div>
 			<div class="item form-group">

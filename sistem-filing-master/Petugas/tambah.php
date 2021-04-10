@@ -3,14 +3,29 @@
 		<center><font size="6">Tambah Data Petugas</font></center>
 		<hr>
 		<?php
+		$cek = mysqli_query($koneksi, "SELECT * FROM petugas") or die(mysqli_error($koneksi));
+		if (mysqli_num_rows($cek) == 0) {
+			$no_kp = 'KP001';
+		} else {
+			
+			$last_kp = false;
+			foreach ($cek as $key => $value) {
+				$last_kp = $value['kd_petugas'];
+			}
+			(int)$last_kp = substr($last_kp, 2);
+			$last_kp++;
+			$num_padded = sprintf("%03d", $last_kp);
+			(string)$no_kp= "KP" . $num_padded;
+		}
+		
 		if(isset($_POST['submit'])){
-			$kd_petugas	= $_POST['kd_petugas'];
+			$kd_petugas	= $no_kp;
 			$nm_petugas	= $_POST['nm_petugas'];
 			$no_telp	= $_POST['no_telp'];
 			$bagian		= $_POST['bagian'];
-		
 			
-
+			
+			
 			$cek = mysqli_query($koneksi, "SELECT * FROM petugas WHERE kd_petugas='$kd_petugas'") or die(mysqli_error($koneksi));
 
 			if(mysqli_num_rows($cek) == 0){
@@ -33,7 +48,7 @@
 			<div class="item form-group">
 				<label class="col-form-label col-md-3 col-sm-3 label-align">Kode Petugas</label>
 				<div class="col-md-6 col-sm-6 ">
-					<input type="text" name="kd_petugas" class="form-control" size="4" required placeholder="misal:KP001">
+					<input type="text" name="kd_petugas" value="<?php echo $no_kp ?>" disabled class="form-control" size="4" required placeholder="misal:KP001">
 				</div>
 			</div>
 			<div class="item form-group">
