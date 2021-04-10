@@ -133,29 +133,7 @@ if (isset($_POST['submit'])) {
 		</div>
 	</div>
 	<div class="item form-group">
-		<label class="col-form-label col-md-3 col-sm-3 label-align">Tanggal Lahir</label>
-		<div class="col-md-6 col-sm-6">
-			<select id="tgl_pasien" name="tgl_lahir" class="form-control" disabled>
-				<?php
-				$pasien = mysqli_query($koneksi, "SELECT * FROM pasien");
-				if (mysqli_num_rows($pasien) == 0) {
-				?>
-					<option value="">tanggal lahir kosong</option>
-				<?php
-				} else {
-					foreach ($pasien as $key => $value) {
-					}
-				?>
-					<option value="<?php echo $value['tgl_lahir']; ?>"><?php echo $value['tgl_lahir']; ?></option>
-				<?php
-				} ?>
-			</select>
-		</div>
-		<script src="assets/jquery/dist/jquery.min.js"></script>
-
-		<script>
-			no_rm = $('#no_rm').val();
-		</script>
+	
 	</div>
 	<div class="item form-group">
 		<div class="col-md-6 col-sm-6 offset-md-3">
