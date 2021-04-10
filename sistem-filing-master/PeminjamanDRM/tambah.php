@@ -23,17 +23,24 @@ if (mysqli_num_rows($no_pm) == 0) {
 
 
 if (isset($_POST['submit'])) {
+	$no_rm = $_POST['no_rm'];
+$sql = mysqli_query($koneksi, "SELECT * FROM pasien where no_rm = '$no_rm'") or die(mysqli_error($koneksi));
+
+while ($pecah = $sql->fetch_assoc()) {
+	$bungkus[] = $pecah;
+}
+
+if (mysqli_num_rows($sql) > 0) {
 	$no_pinjam	= $no_pm;
 	$tgl_pinjam	= $_POST['tgl_pinjam'];
 	$kd_petugas	= $_POST['kd_petugas'];
 	$tujuan_pinjam		= $_POST['tujuan_pinjam'];
 	$lokasi_pinjam	= $_POST['lokasi_pinjam'];
 	$tanggal_hrs_kmb	= $_POST['tanggal_hrs_kmb'];
-	$no_rm	= $_POST['no_rm'];
-	$nm_pasien		= $_POST['nm_pasien'];
-	$tgl_lahir		= $_POST['tgl_lahir'];
-
-
+	$no_rm	= $no_rm;
+	$nm_pasien		= $bungkus[0]['nm_pasien'];
+	$tgl_lahir		= $bungkus[0]['tgl_lahir'];
+}
 
 
 

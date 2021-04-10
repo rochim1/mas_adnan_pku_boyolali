@@ -21,7 +21,7 @@ include('/config/config.php');
 					<th>Tanggal harus kembali</th>
 					<th>No RM</th>
 					<th>Nama Pasien</th>
-					<th>Tanggal Lahir</th>
+					<th>status</th>
 					<th>Aksi</th>
 				</tr>
 			</thead>
@@ -48,7 +48,7 @@ include('/config/config.php');
 							<td>'.date("d M Y", strtotime($data['tanggal_hrs_kmb'])).'</td>
 							<td>'.$data['no_rm'].'</td>
 							<td>'.$data['nm_pasien'].'</td>
-							<td>'.date("d M Y", strtotime($data['tgl_lahir'])).'</td>
+							<td>'.$data['status_pjm'].'</td>
 							
 							
 							<td>

@@ -78,7 +78,7 @@
 			<div class="item form-group">
 				<label class="col-form-label col-md-3 col-sm-3 label-align">Tanggal Lahir</label>
 				<div class="col-md-6 col-sm-6">
-					<input type="text" name="tgl_lahir" class="form-control" value="<?php echo $data['tgl_lahir']; ?>" required>
+					<input type="date" name="tgl_lahir" class="form-control" value="<?php echo date('Y-m-d', strtotime($data['tgl_lahir'])) ?>" required>
 				</div>
 			</div>
 			<div class="item form-group">
