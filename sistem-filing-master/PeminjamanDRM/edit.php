@@ -86,7 +86,7 @@
 											if ($data['kd_petugas'] == $value['kd_petugas']) {
 												echo "selected";
 											}
-						?>" value="<?php echo $value['kd_petugas']; ?>"><?php echo $value['kd_petugas'] . '-' . $value['nm_petugas']; ?></option>
+											?>" value="<?php echo $value['kd_petugas']; ?>"><?php echo $value['kd_petugas'] . '-' . $value['nm_petugas']; ?></option>
 					<?php
 					} ?>
 
@@ -125,10 +125,31 @@
 					?>
 						<option selected="<?php if ($data['no_rm'] == $value['no_rm']) {
 												echo "selected";
-											}?>" value="<?php echo $value['no_rm']; ?>"><?php echo $value['no_rm'] . '-' . $value['nm_pasien']; ?></option>
+											} ?>" value="<?php echo $value['no_rm']; ?>"><?php echo $value['no_rm'] . '-' . $value['nm_pasien']; ?></option>
 					<?php
 					} ?>
 				</select>
+			</div>
+		</div>
+
+		<div class="item form-group">
+			<label class="col-form-label col-md-3 col-sm-3 label-align">Status Pinjam</label>
+			<div class="col-md-6 col-sm-6">
+				<div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+						<input type="radio" class="join-btn" name="status_pjm" value="berlangsung" required>Berlangsung
+					</label>
+
+					<label class="btn btn-danger" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+						<input type="radio" class="join-btn" name="status_pjm" value="dikembalikan" required>Dikembalikan
+					</label>
+
+					<!-- <label class="btn btn-danger" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+						<input type="radio" class="join-btn" name="status_pjm" value="Kadaluarsa" required>Kadaluarsa
+					</label> -->
+
+
+				</div>
 			</div>
 		</div>
 

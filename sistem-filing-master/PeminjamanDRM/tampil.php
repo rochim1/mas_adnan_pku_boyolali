@@ -25,7 +25,7 @@ include('/config/config.php');
 					<th>Tanggal harus kembali</th>
 					<th>No RM</th>
 					<th>Nama Pasien</th>
-					<th>Tanggal Lahir</th>
+					<th>Status</th>
 					<th>Aksi</th>
 				</tr>
 			</thead>
@@ -52,10 +52,10 @@ include('/config/config.php');
 							<td>' . date("d M Y", strtotime($data['tanggal_hrs_kmb'])) . '</td>
 							<td>' . $data['no_rm'] . '</td>
 							<td>' . $data['nm_pasien'] . '</td>
-							<td>' . date("d M Y", strtotime($data['tgl_lahir'])) . '</td>
+							<td class="bg-success">' . $data['status_pjm'] . '</td>
 							
 							
-							<td>
+							<td width="120px">
 								<a href="dashboard.php?page=edit_peminjaman_DRM&no_pinjam=' . $data['no_pinjam'] . '" class="btn btn-secondary btn-sm">Edit</a>
 								<a href="dashboard.php?page=delete_peminjaman_PRJ&no_pinjam=' . $data['no_pinjam'] . '" class="btn btn-danger btn-sm" onclick="return confirm(\'Yakin ingin menghapus data ini?\')">Delete</a>
 							</td>
