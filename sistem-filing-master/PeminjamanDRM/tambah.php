@@ -24,23 +24,23 @@ if (mysqli_num_rows($no_pm) == 0) {
 
 if (isset($_POST['submit'])) {
 	$no_rm = $_POST['no_rm'];
-$sql = mysqli_query($koneksi, "SELECT * FROM pasien where no_rm = '$no_rm'") or die(mysqli_error($koneksi));
+	$sql = mysqli_query($koneksi, "SELECT * FROM pasien where no_rm = '$no_rm'") or die(mysqli_error($koneksi));
 
-while ($pecah = $sql->fetch_assoc()) {
-	$bungkus[] = $pecah;
-}
+	while ($pecah = $sql->fetch_assoc()) {
+		$bungkus[] = $pecah;
+	}
 
-if (mysqli_num_rows($sql) > 0) {
-	$no_pinjam	= $no_pm;
-	$tgl_pinjam	= $_POST['tgl_pinjam'];
-	$kd_petugas	= $_POST['kd_petugas'];
-	$tujuan_pinjam		= $_POST['tujuan_pinjam'];
-	$lokasi_pinjam	= $_POST['lokasi_pinjam'];
-	$tanggal_hrs_kmb	= $_POST['tanggal_hrs_kmb'];
-	$no_rm	= $no_rm;
-	$nm_pasien		= $bungkus[0]['nm_pasien'];
-	$tgl_lahir		= $bungkus[0]['tgl_lahir'];
-}
+	if (mysqli_num_rows($sql) > 0) {
+		$no_pinjam	= $no_pm;
+		$tgl_pinjam	= $_POST['tgl_pinjam'];
+		$kd_petugas	= $_POST['kd_petugas'];
+		$tujuan_pinjam		= $_POST['tujuan_pinjam'];
+		$lokasi_pinjam	= $_POST['lokasi_pinjam'];
+		$tanggal_hrs_kmb	= $_POST['tanggal_hrs_kmb'];
+		$no_rm	= $no_rm;
+		$nm_pasien		= $bungkus[0]['nm_pasien'];
+		$tgl_lahir		= $bungkus[0]['tgl_lahir'];
+	}
 
 
 
@@ -59,19 +59,22 @@ if (mysqli_num_rows($sql) > 0) {
 }
 ?>
 
-
+<?php
+$hari_ini = date("Y-m-d");
+$harus_kembali = date('Y-m-d', strtotime($hari_ini . ' + 2 days'));
+?>
 <!-- terakhir sampai siniiiiiihhhhhhhhhhhhh.. -->
 <form action="dashboard.php?page=tambah_peminjaman_DRM" method="post">
 	<div class="item form-group">
 		<label class="col-form-label col-md-3 col-sm-3 label-align">Nomor Pinjam</label>
 		<div class="col-md-6 col-sm-6 ">
-			<input type="text" value="<?php echo $no_pm ?>" disabled name="no_pinjam" class="form-control" size="4" required placeholder="misal:PM001">
+			<input type="text" value="<?php echo $no_pm ?>" readonly name="no_pinjam" class="form-control" size="4" required placeholder="misal:PM001">
 		</div>
 	</div>
 	<div class="item form-group">
 		<label class="col-form-label col-md-3 col-sm-3 label-align">Tanggal Pinjam</label>
 		<div class="col-md-6 col-sm-6">
-			<input type="date" placeholder="dd/mm/yyyy" date-format="DD/MM/YYYY" name="tgl_pinjam" class="form-control" required>
+			<input type="date" readonly placeholder="dd/mm/yyyy" data-date-format="DD/MM/YYYY" value="<?php echo $hari_ini ?>" name="tgl_pinjam" class="form-control" required>
 		</div>
 
 	</div>
@@ -111,11 +114,7 @@ if (mysqli_num_rows($sql) > 0) {
 	<div class="item form-group">
 		<label class="col-form-label col-md-3 col-sm-3 label-align">Tanggal Harus Kembali</label>
 		<div class="col-md-6 col-sm-6">
-			<?php
-			$hari_ini = date("Y-m-d");
-			$harus_kembali = date('Y-m-d', strtotime($hari_ini . ' + 2 days'));
-			?>
-			<input type="date" disabled placeholder="dd/mm/yyyy" data-date-format="DD/MM/YYYY" value="<?php echo $harus_kembali ?>" name="tanggal_hrs_kmb" class="form-control" required>
+			<input type="date" readonly placeholder="dd/mm/yyyy" data-date-format="DD/MM/YYYY" value="<?php echo $harus_kembali; ?>" name="tanggal_hrs_kmb" class="form-control" required>
 		</div>
 	</div>
 	<div class="item form-group">
@@ -140,7 +139,7 @@ if (mysqli_num_rows($sql) > 0) {
 		</div>
 	</div>
 	<div class="item form-group">
-	
+
 	</div>
 	<div class="item form-group">
 		<div class="col-md-6 col-sm-6 offset-md-3">

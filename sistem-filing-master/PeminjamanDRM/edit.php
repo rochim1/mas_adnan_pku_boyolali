@@ -40,9 +40,10 @@
 		$no_rm = $_POST['no_rm'];
 		$nm_pasien	= $_POST['nm_pasien'];
 		$tgl_lahir	= $_POST['tgl_lahir'];
+		$status_pjm	= $_POST['status_pjm'];
 
 
-		$sql = mysqli_query($koneksi, "UPDATE peminjaman SET no_pinjam ='$no_pinjam', tgl_pinjam='$tgl_pinjam', kd_petugas='$kd_petugas', tujuan_pinjam='$tujuan_pinjam' , lokasi_pinjam='$lokasi_pinjam' , tanggal_hrs_kmb='$tanggal_hrs_kmb' , no_rm='$no_rm' , nm_pasien='$nm_pasien', tgl_lahir='$tgl_lahir' WHERE no_pinjam ='$no_pinjam'") or die(mysqli_error($koneksi));
+		$sql = mysqli_query($koneksi, "UPDATE peminjaman SET no_pinjam ='$no_pinjam', tgl_pinjam='$tgl_pinjam', kd_petugas='$kd_petugas', tujuan_pinjam='$tujuan_pinjam' , lokasi_pinjam='$lokasi_pinjam' , tanggal_hrs_kmb='$tanggal_hrs_kmb' , no_rm='$no_rm' , nm_pasien='$nm_pasien', tgl_lahir='$tgl_lahir' , status_pjm='$status_pjm' WHERE no_pinjam ='$no_pinjam'") or die(mysqli_error($koneksi));
 
 		if ($sql) {
 			echo '<script>alert("Berhasil menyimpan data."); document.location="dashboard.php?page=tampil_peminjaman_DRM";</script>';
