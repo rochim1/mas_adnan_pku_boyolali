@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Mar 21, 2021 at 11:49 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.1
+-- Host: 127.0.0.1
+-- Generation Time: Apr 13, 2021 at 07:15 AM
+-- Server version: 10.4.13-MariaDB
+-- PHP Version: 7.4.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -43,12 +43,7 @@ CREATE TABLE `pasien` (
 --
 
 INSERT INTO `pasien` (`no_rm`, `nm_pasien`, `tgl_lahir`, `alamat`, `no_telp`, `pekerjaan`, `tmp_lahir`, `jenis_klm`) VALUES
-('RM001', 'Aura Lisa', '2017-06-15', 'Boyolali tlatar sekitar situ', '082229207400', 'Mahasiswa', 'Boyolali', 'Perempuan'),
-('RM003', 'Adnan Aziz D', '2021-01-05', 'boyolali', '123', 'mahasiswa', 'Boyolali', 'Laki-Laki'),
-('RM004', 'azize', '2021-01-05', 'asd', '08222123456', 'asd', 'qwe', 'Laki-Laki'),
-('RM005', 'azizad', '2021-01-03', 'boyolali lah', '08222123456', 'mahasiswa', 'Boyolali', 'Perempuan'),
-('RM016', 'asdasdas', '1999-12-12', 'asd', '12312312', 'asd', 'asdasdasd', 'Perempuan'),
-('RM017', 'asd', '1999-12-12', 'asd', '123123123', 'a', 'qw', 'Laki-Laki');
+('RM001', 'muhammad nur rochim', '2021-04-05', 'jakal', '08215', 'profesi', 'tempat', 'Laki-Laki');
 
 -- --------------------------------------------------------
 
@@ -69,9 +64,7 @@ CREATE TABLE `peminjam` (
 --
 
 INSERT INTO `peminjam` (`kd_peminjam`, `nmpeminjam`, `alamat`, `no_telp`, `keterangan`) VALUES
-('PJ001', 'Siti Halizah', 'Bantul City', '123123123', 'tidak ada keluhan sehat wal afiat'),
-('PJ002', 'adnanaz', 'asde', '082229207400', 'sehat'),
-('PJ03', 'lisaaa', 'adada', '12312312312', 'asdasd');
+('PJ001', 'muhammad nur rochim', 'caran sinduharjo', '082154441119', 'mantap');
 
 -- --------------------------------------------------------
 
@@ -88,15 +81,18 @@ CREATE TABLE `peminjaman` (
   `tanggal_hrs_kmb` datetime DEFAULT NULL,
   `no_rm` varchar(5) DEFAULT NULL,
   `nm_pasien` varchar(255) DEFAULT NULL,
-  `tgl_lahir` datetime DEFAULT NULL
+  `tgl_lahir` datetime DEFAULT NULL,
+  `status_pjm` text NOT NULL DEFAULT 'berlangsung'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `peminjaman`
 --
 
-INSERT INTO `peminjaman` (`no_pinjam`, `tgl_pinjam`, `kd_petugas`, `tujuan_pinjam`, `lokasi_pinjam`, `tanggal_hrs_kmb`, `no_rm`, `nm_pasien`, `tgl_lahir`) VALUES
-('PM001', '2021-02-12 00:00:00', 'KP002', 'bebas', 'solo', '2021-02-17 00:00:00', 'RM001', 'auralisa', '2021-02-11 00:00:00');
+INSERT INTO `peminjaman` (`no_pinjam`, `tgl_pinjam`, `kd_petugas`, `tujuan_pinjam`, `lokasi_pinjam`, `tanggal_hrs_kmb`, `no_rm`, `nm_pasien`, `tgl_lahir`, `status_pjm`) VALUES
+('PM002', '2021-04-10 00:00:00', 'KP001', 'di sana', 'di lemari :v', '0000-00-00 00:00:00', 'RM001', '', '0000-00-00 00:00:00', 'dikembalikan'),
+('PM004', '2021-04-13 00:00:00', 'KP001', 'dibawa pulang :v', 'di lemari :v', '2021-04-15 00:00:00', 'RM001', 'muhammad nur rochim', '2021-04-05 00:00:00', 'dikembalikan'),
+('PM005', '2021-04-10 00:00:00', 'KP001', 'dibawa pulang :v', 'di lemari :v', '2021-04-12 00:00:00', 'RM001', 'muhammad nur rochim', '2021-04-05 00:00:00', 'berlangsung');
 
 -- --------------------------------------------------------
 
@@ -116,9 +112,7 @@ CREATE TABLE `petugas` (
 --
 
 INSERT INTO `petugas` (`kd_petugas`, `nm_petugas`, `no_telp`, `bagian`) VALUES
-('KP001', 'Adnan Aziz E', '082229207412', 'Perawat'),
-('KP002', 'asde', '123123123', 'RI-Melati'),
-('KP003', 'asd', '123123123', 'RI-Melati');
+('KP001', 'muhammad nur rochim', '0821215', 'poli tampan');
 
 -- --------------------------------------------------------
 
@@ -129,6 +123,7 @@ INSERT INTO `petugas` (`kd_petugas`, `nm_petugas`, `no_telp`, `bagian`) VALUES
 CREATE TABLE `pinjam_kembali` (
   `kode_pinjam_kmb` varchar(6) NOT NULL,
   `tgl_pinjam` datetime DEFAULT NULL,
+  `kd_peminjaman` int(11) NOT NULL,
   `kd_peminjam` varchar(6) DEFAULT NULL,
   `kd_petugas` varchar(6) DEFAULT NULL,
   `tujuan_pinjam` varchar(100) DEFAULT NULL,
@@ -160,7 +155,7 @@ CREATE TABLE `tbl_users` (
 --
 
 INSERT INTO `tbl_users` (`id`, `user_role_id`, `nama_depan`, `nama_belakang`, `email`, `password`) VALUES
-(1, 1, 'john', 'doe', 'john_doe@example.com', '0192023a7bbd73250516f069df18b500'),
+(1, 1, 'john', 'doe', 'kepalarm@gmail.com', '0192023a7bbd73250516f069df18b500'),
 (2, 2, 'ahsan', 'zameer', 'ahsan@example.com', '3d68b18bd9042ad3dc79643bde1ff351'),
 (3, 3, 'sarah', 'khan', 'sarah@example.com', 'ec26202651ed221cf8f993668c459d46');
 
