@@ -25,7 +25,6 @@ require_once('config/config.php');
       padding: 10px 18px;
       padding-bottom: 0px;
     }
-
   </style>
   <title> SISTEM INFORMASI PENGOLAHAN DATA DI BAGIAN FILING
     RS PKU AISYIYAH BOYOLALI </title>
@@ -99,62 +98,62 @@ require_once('config/config.php');
                 <?php
                 if ($_SESSION['user_role_id'] == 2) {
                 ?>
-                <li><a href="#"><i class="fa fa-desktop"></i> Data Pasien <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                    <li><a href="dashboard.php?page=tampil_pasien">Tampil Data Pasien</a></li>
-                    <li><a href="dashboard.php?page=tambah_pasien">Tambah Data Pasien</a></li>
-                  </ul>
-                </li>
+                  <li><a href="#"><i class="fa fa-desktop"></i> Data Pasien <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="dashboard.php?page=tampil_pasien">Tampil Data Pasien</a></li>
+                      <li><a href="dashboard.php?page=tambah_pasien">Tambah Data Pasien</a></li>
+                    </ul>
+                  </li>
 
 
-                <li><a><i class="fa fa-desktop"></i> Data Petugas <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                    <li><a href="dashboard.php?page=tampil_petugas">Tampil Data</a></li>
-                    <li><a href="dashboard.php?page=tambah_petugas">Tambah Data</a></li>
-                  </ul>
-                </li>
+                  <li><a><i class="fa fa-desktop"></i> Data Petugas <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="dashboard.php?page=tampil_petugas">Tampil Data</a></li>
+                      <li><a href="dashboard.php?page=tambah_petugas">Tambah Data</a></li>
+                    </ul>
+                  </li>
                 <?php
                 }
                 if ($_SESSION['user_role_id'] != 1) {
 
                 ?>
 
-                <li><a><i class="fa fa-desktop"></i> Data Peminjam <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                    <li><a href="dashboard.php?page=tampil_peminjam">Tampil Data Peminjam</a></li>
-                    <li><a href="dashboard.php?page=tambah_peminjam">Tambah Data Peminjam</a></li>
-                  </ul>
-                </li>
+                  <li><a><i class="fa fa-desktop"></i> Data Peminjam <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="dashboard.php?page=tampil_peminjam">Tampil Data Peminjam</a></li>
+                      <li><a href="dashboard.php?page=tambah_peminjam">Tambah Data Peminjam</a></li>
+                    </ul>
+                  </li>
                 <?php
                 }
                 if ($_SESSION['user_role_id'] == 2 or $_SESSION['user_role_id'] == 1) {
                 ?>
 
-                <li><a><i class="fa fa-desktop"></i> Transaksi <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                    <li><a href="dashboard.php?page=tampil_pasien_PRJ">Transaksi Pendaftaran Pasien Rawat Jalan</a></li>
-                    <li><a href="dashboard.php?page=tampil_peminjaman_DRM">Transaksi Peminjaman DRM</a></li>
-                    <li><a href="#">Transaksi Pengembalian</a></li>
-                  </ul>
-                </li>
+                  <li><a><i class="fa fa-desktop"></i> Transaksi <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="dashboard.php?page=tampil_pasien_PRJ">Transaksi Pendaftaran Pasien Rawat Jalan</a></li>
+                      <li><a href="dashboard.php?page=tampil_peminjaman_DRM">Transaksi Peminjaman DRM</a></li>
+                      <li><a href="dashboard.php?page=tampil_pengembalian_DRM">Transaksi Pengembalian</a></li>
+                    </ul>
+                  </li>
 
-                <?php
+                  <?php
                   if ($_SESSION['user_role_id'] != 3) {
                   ?>
-                <li><a><i class="fa fa-desktop"></i> Laporan <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                    <li><a href="dashboard.php?page=cetak_data_pasien">Laporan Data Pasien</a></li>
-                    <li><a href="#">Laporan Data Petugas</a></li>
-                    <li><a href="#">Laporan Data Peminjam</a></li>
-                    <li><a href="#">Laporan Data Pendaftaran Pasien</a></li>
-                    <li><a href="#">Laporan Data Peminjaman</a></li>
-                    <li><a href="#">Laporan Data Pengembalian</a></li>
-                    <li><a href="#">Laporan Data Belum Kembali</a></li>
-                    <li><a href="#">Laporan Data Lokasi Peminjaman</a></li>
-                    <li><a href="#">Laporan Data Pengendalian</a></li>
-                    <li><a href="#">Laporan Data Keterlambatan</a></li>
-                  </ul>
-                </li>
+                    <li><a><i class="fa fa-desktop"></i> Laporan <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="dashboard.php?page=cetak_data_pasien">Laporan Data Pasien</a></li>
+                        <li><a href="#">Laporan Data Petugas</a></li>
+                        <li><a href="#">Laporan Data Peminjam</a></li>
+                        <li><a href="#">Laporan Data Pendaftaran Pasien</a></li>
+                        <li><a href="#">Laporan Data Peminjaman</a></li>
+                        <li><a href="#">Laporan Data Pengembalian</a></li>
+                        <li><a href="#">Laporan Data Belum Kembali</a></li>
+                        <li><a href="#">Laporan Data Lokasi Peminjaman</a></li>
+                        <li><a href="#">Laporan Data Pengendalian</a></li>
+                        <li><a href="#">Laporan Data Keterlambatan</a></li>
+                      </ul>
+                    </li>
                 <?php
                   }
                 }
@@ -200,8 +199,7 @@ require_once('config/config.php');
           <nav class="nav navbar-nav">
             <ul class=" navbar-right">
               <li class="nav-item dropdown open">
-                <a href="#" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown"
-                  data-toggle="dropdown" aria-expanded="false">
+                <a href="#" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
                   <img src="assets/images/avatar2.jpg" alt="User Avatar Image"> <?php echo $_SESSION['nama_depan'] ?>
                 </a>
                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
@@ -339,6 +337,31 @@ require_once('config/config.php');
             include 'PeminjamanDRM/delete.php';
             break;
             // END Peminjaman DRM
+            
+            
+            //pengembalian DRM
+          case 'tampil_pengembalian_DRM':
+            # code...
+            include 'pengembalianDRM/tampil.php';
+
+            break;
+          case 'tambah_pengembalian_DRM':
+            # code...
+            include 'pengembalianDRM/tambah.php';
+            break;
+          case 'edit_pengembalian_DRM':
+            # code...
+            include 'pengembalianDRM/edit.php';
+            break;
+          case 'edit_pengembalian_save':
+            # code...
+            include 'pengembalianDRM/edit.php';
+            break;
+          case 'delete_pengembalian_PRJ':
+            # code...
+            include 'pengembalianDRM/delete.php';
+            break;
+            // END pengembalian DRM
 
             // laporan
             // cetak_data_pasien
@@ -397,7 +420,7 @@ require_once('config/config.php');
 
 
 
-    $(document).ready(function () {
+    $(document).ready(function() {
       $('#myTable').dataTable({
         aLengthMenu: [
           [25, 50, 100, 200, -1],
@@ -456,7 +479,7 @@ require_once('config/config.php');
 
       printWindow.document.close();
       printWindow.focus();
-      setTimeout(function () {
+      setTimeout(function() {
         printWindow.print();
       }, 3000);
     }
