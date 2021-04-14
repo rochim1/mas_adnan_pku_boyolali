@@ -11,7 +11,7 @@ include('/config/config.php');
 	<hr>
 	<a href="dashboard.php?page=tambah_peminjam"><button class="btn btn-dark right">Tambah Data</button></a>
 	
-		<button onclick="trig_print()" class="btn btn-primary right" on>Print</button>
+		<!-- <button onclick="trig_print()" class="btn btn-primary right" on>Print</button> -->
 	<div class="table-responsive mt-2">
 		<table aria-label="Data Peminjam" id="myTable" class="table table-striped jambo_table bulk_action">
 			<thead>

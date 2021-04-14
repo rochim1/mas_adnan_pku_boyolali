@@ -6,7 +6,7 @@ include('../config/config.php');
 
 <div class="container" style="margin-top:20px">
   <center>
-    <font size="6">Laporan Data Pasien</font>
+    <font size="6">Laporan Data Pendaftaran Pasien</font>
   </center>
   <hr>
   <button onclick="trig_print()" class="btn btn-primary right" on>Print</button>
@@ -54,7 +54,7 @@ include('../config/config.php');
   </div>
 </div>
 <div class="table-responsive mt-2">
-  <table aria-label="Laporan Data Pasien" id="myTable" class="table table-striped jambo_table bulk_action">
+  <table aria-label="Laporan Data Pendaftaran Pasien" id="myTable" class="table table-striped jambo_table bulk_action">
     <thead>
       <tr>
         <th>No</th>

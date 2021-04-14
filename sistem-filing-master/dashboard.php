@@ -134,6 +134,7 @@ require_once('config/config.php');
                       <li><a href="dashboard.php?page=tampil_pasien_PRJ">Transaksi Pendaftaran Pasien Rawat Jalan</a></li>
                       <li><a href="dashboard.php?page=tampil_peminjaman_DRM">Transaksi Peminjaman DRM</a></li>
                       <li><a href="dashboard.php?page=tampil_pengembalian_DRM">Transaksi Pengembalian</a></li>
+                      <li><a href="dashboard.php?page=tampil_pengembalian_DRM">Sistem Retensi</a></li>
                     </ul>
                   </li>
 
@@ -143,13 +144,14 @@ require_once('config/config.php');
                     <li><a><i class="fa fa-desktop"></i> Laporan <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
                         <li><a href="dashboard.php?page=cetak_data_pasien">Laporan Data Pasien</a></li>
-                        <li><a href="#">Laporan Data Petugas</a></li>
-                        <li><a href="#">Laporan Data Peminjam</a></li>
-                        <li><a href="#">Laporan Data Pendaftaran Pasien</a></li>
-                        <li><a href="#">Laporan Data Peminjaman</a></li>
-                        <li><a href="#">Laporan Data Pengembalian</a></li>
-                        <li><a href="#">Laporan Data Belum Kembali</a></li>
-                        <li><a href="#">Laporan Data Lokasi Peminjaman</a></li>
+                        <li><a onclick="printPetugas()" href="#">Laporan Data Petugas</a></li>
+                        <li><a onclick="printPeminjam()" href="#">Laporan Data Peminjam</a></li>
+                        <li><a href="dashboard.php?page=cetak_data_pendaftaran_pasien">Laporan Data Pendaftaran Pasien</a></li>
+                        
+                        <li><a href="dashboard.php?page=cetak_data_peminjaman">Laporan Data Peminjaman</a></li>
+                        <li><a href="dashboard.php?page=cetak_data_pengembalian">Laporan Data Pengembalian</a></li>
+                        <li><a href="dashboard.php?page=cetak_data_blm_kembali">Laporan Data Belum Kembali</a></li>
+                        <li><a href="dashboard.php?page=lokasi_peminjaman">Laporan Data Lokasi Peminjaman</a></li>
                         <li><a href="#">Laporan Data Pengendalian</a></li>
                         <li><a href="#">Laporan Data Keterlambatan</a></li>
                       </ul>
@@ -337,8 +339,8 @@ require_once('config/config.php');
             include 'PeminjamanDRM/delete.php';
             break;
             // END Peminjaman DRM
-            
-            
+
+
             //pengembalian DRM
           case 'tampil_pengembalian_DRM':
             # code...
@@ -369,6 +371,18 @@ require_once('config/config.php');
             # code...
             include 'Laporan/lap.data.pasien.php';
             break;
+          
+            case 'cetak_data_pendaftaran_pasien':
+            # code...
+            include 'Laporan/lap.data.pendaftaranpasien.php';
+            break;
+            
+            case 'cetak_data_peminjaman':
+            # code...
+            include 'Laporan/lap.data.peminjaman.php';
+            break;
+
+
             // end laporan
           default:
             #code...
@@ -380,6 +394,7 @@ require_once('config/config.php');
 
         </div>
       </div>
+
       <!-- /page content -->
 
       <!-- footer content -->
@@ -416,10 +431,6 @@ require_once('config/config.php');
   <script src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 
   <script>
-    // alert('berhasil');
-
-
-
     $(document).ready(function() {
       $('#myTable').dataTable({
         aLengthMenu: [
@@ -482,6 +493,40 @@ require_once('config/config.php');
       setTimeout(function() {
         printWindow.print();
       }, 3000);
+    }
+
+    function printPetugas() {
+      window.open('Laporan/lap.data.petugas.php', 'laporanPasien', 'height=300,width=500');
+
+    }
+
+    function printPeminjam() {
+      window.open('Laporan/lap.data.peminjam.php', 'laporanPasien', 'height=300,width=500');
+    }
+
+    function printPendaftarPasien() {
+      window.open('Laporan/lap.data.pendaftaranpasien.php', 'laporanPasien', 'height=300,width=500');
+    }
+
+
+    function printPengembalian() {
+      window.open('Laporan/lap.data.pengembalian.php', 'laporanPasien', 'height=300,width=500');
+    }
+
+    function printBelumKembali() {
+      window.open('Laporan/lap.data.belumkembali.php', 'laporanPasien', 'height=300,width=500');
+    }
+
+    function printLokasiPinjam() {
+      window.open('Laporan/lap.data.lokasipeminjaman.php', 'laporanPasien', 'height=300,width=500');
+    }
+
+    function printPengendalian() {
+      window.open('Laporan/lap.data.pengendalian.php', 'laporanPasien', 'height=300,width=500');
+    }
+
+    function printKeterlambatan() {
+      window.open('Laporan/lap.data.keterlambatan.php', 'laporanPasien', 'height=300,width=500');
     }
   </script>
 </body>

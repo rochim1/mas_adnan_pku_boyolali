@@ -13,8 +13,6 @@ include('/config/config.php');
 
 	<button onclick="trig_print()" class="btn btn-primary right">Print</button>
 
-
-
 	<div class="table-responsive mt-2">
 		<table aria-label="Transaksi Pendaftaran Pasien Rawat Jalan" id="myTable" class="table table-striped jambo_table bulk_action">
 			<thead>

@@ -12,7 +12,7 @@ include('/config/config.php');
 	<a href="dashboard.php?page=tambah_petugas"><button class="btn btn-dark right">Tambah Data</button></a>
 
 	
-		<button onclick="trig_print()" class="btn btn-primary right" on>Print</button>
+		<!-- <button onclick="trig_print()" class="btn btn-primary right" on>Print</button> -->
 
 	<div class="table-responsive mt-2">
 		<table aria-label="Data Petugas" id="myTable" class="table table-striped jambo_table bulk_action">

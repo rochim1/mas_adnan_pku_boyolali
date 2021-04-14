@@ -90,10 +90,11 @@ $harus_kembali = date('Y-m-d', strtotime($hari_ini . ' + 2 days'));
 				<?php
 				} else {
 					foreach ($petugas as $key => $value) {
-					}
+					
 				?>
 					<option value="<?php echo $value['kd_petugas']; ?>"><?php echo $value['kd_petugas'] . '-' . $value['nm_petugas']; ?></option>
 				<?php
+				}
 				} ?>
 
 			</select>
@@ -130,11 +131,13 @@ $harus_kembali = date('Y-m-d', strtotime($hari_ini . ' + 2 days'));
 				<?php
 				} else {
 					foreach ($pasien as $key => $value) {
-					}
+					
 				?>
 					<option value="<?php echo $value['no_rm']; ?>"><?php echo $value['no_rm'] . '-' . $value['nm_pasien']; ?></option>
 				<?php
-				} ?>
+				}
+				}
+				 ?>
 			</select>
 		</div>
 	</div>
