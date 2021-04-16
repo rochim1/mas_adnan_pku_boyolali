@@ -25,14 +25,13 @@ include('/config/config.php');
 					<th>harus kembali</th>
 					<th>No RM</th>
 					<th>Nama Pasien</th>
-					<th>Status</th>
 					<th>Aksi</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php
 				//query ke database SELECT tabel mahasiswa urut berdasarkan id yang paling besar
-				$sql = mysqli_query($koneksi, "SELECT * FROM peminjaman ORDER BY no_pinjam ASC") or die(mysqli_error($koneksi));
+				$sql = mysqli_query($koneksi, "SELECT * FROM peminjaman") or die(mysqli_error($koneksi));
 				//jika query diatas menghasilkan nilai > 0 maka menjalankan script di bawah if...
 				if (mysqli_num_rows($sql) > 0) {
 					
@@ -65,14 +64,6 @@ include('/config/config.php');
 							<td>' . date("d M Y", strtotime($data['tanggal_hrs_kmb'])) . '</td>
 							<td>' . $data['no_rm'] . '</td>
 							<td>' . $data['nm_pasien'] . '</td>
-							<td class="';
-							if ($data['status_pjm'] == 'berlangsung') {
-								echo 'text-info';
-							}else{
-								echo 'text-success';
-							}
-							
-							echo '">' . $data['status_pjm'] . '</td>
 							
 							
 							<td width="115px">

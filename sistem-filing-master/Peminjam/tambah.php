@@ -24,6 +24,10 @@
 		if(isset($_POST['submit'])){
 			$kd_peminjam	= $no_pj;
 			$nmpeminjam		= $_POST['nmpeminjam'];
+
+			$email			= $_POST['email'];
+			$password		= md5($_POST['password']);
+			
 			$alamat			= $_POST['alamat'];
 			$no_telp		= $_POST['no_telp'];
 			$keterangan		= $_POST['keterangan'];
@@ -33,7 +37,7 @@
 
 
 			if(mysqli_num_rows($cek) == 0){
-				$sql = mysqli_query($koneksi, "INSERT INTO peminjam (kd_peminjam, nmpeminjam,alamat, no_telp, keterangan) VALUES('$kd_peminjam', '$nmpeminjam', '$alamat', '$no_telp', '$keterangan')") or die(mysqli_error($koneksi));
+				$sql = mysqli_query($koneksi, "INSERT INTO peminjam (kd_peminjam, nmpeminjam,email,password,alamat, no_telp, keterangan) VALUES('$kd_peminjam', '$nmpeminjam','$email','$password', '$alamat', '$no_telp', '$keterangan')") or die(mysqli_error($koneksi));
 
 				if($sql){
 					echo '<script>alert("Berhasil menambahkan data."); document.location="dashboard.php?page=tampil_peminjam";</script>';
@@ -56,12 +60,29 @@
 			<input type="text" name="kd_peminjam" value="<?php echo $no_pj ?>" disabled class="form-control" size="4" required placeholder="misal:PJ001">
 		</div>
 	</div>
+	
 	<div class="item form-group">
 		<label class="col-form-label col-md-3 col-sm-3 label-align">Nama Peminjam</label>
 		<div class="col-md-6 col-sm-6">
 			<input type="text" name="nmpeminjam" class="form-control" required>
 		</div>
 	</div>
+	
+	<div class="item form-group">
+		<label class="col-form-label col-md-3 col-sm-3 label-align">Email</label>
+		<div class="col-md-6 col-sm-6">
+			<input type="email" name="email" class="form-control" required>
+		</div>
+	</div>
+	
+	<div class="item form-group">
+		<label class="col-form-label col-md-3 col-sm-3 label-align">Password</label>
+		<div class="col-md-6 col-sm-6">
+			<input type="password" name="password" class="form-control" required>
+		</div>
+	</div>
+
+
 	<div class="item form-group">
 		<label class="col-form-label col-md-3 col-sm-3 label-align">Alamat</label>
 		<div class="col-md-6 col-sm-6">

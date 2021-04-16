@@ -9,16 +9,16 @@
 
 	<?php
 	//jika sudah mendapatkan parameter GET id dari URL
-	if (isset($_GET['no_pinjam'])) {
+	if (isset($_GET['kd_pinjam_kembali'])) {
 		//membuat variabel $id untuk menyimpan id dari GET id di URL
-		$no_pinjam = $_GET['no_pinjam'];
+		$kd_pinjam_kembali = $_GET['kd_pinjam_kembali'];
 
 		//query ke database SELECT tabel mahasiswa berdasarkan id = $id
-		$select = mysqli_query($koneksi, "SELECT * FROM peminjaman WHERE no_pinjam='$no_pinjam'") or die(mysqli_error($koneksi));
+		$select = mysqli_query($koneksi, "SELECT * FROM pinjam_kembali WHERE kd_pinjam_kembali='$kd_pinjam_kembali'") or die(mysqli_error($koneksi));
 
 		//jika hasil query = 0 maka muncul pesan error
 		if (mysqli_num_rows($select) == 0) {
-			echo '<div class="alert alert-warning">Nomor pinjam tidak ada dalam database.</div>';
+			echo '<div class="alert alert-warning">Nomor pinjam kembali tidak ada dalam database.</div>';
 			exit();
 			//jika hasil query > 0
 		} else {
@@ -31,34 +31,79 @@
 	<?php
 	//jika tombol simpan di tekan/klik
 	if (isset($_POST['submit'])) {
-		$no_pinjam	= $_POST['no_pinjam'];
+		$no_rm = $_POST['no_rm'];
+		$sql = mysqli_query($koneksi, "SELECT * FROM pasien where no_rm = '$no_rm'") or die(mysqli_error($koneksi));
+
+		while ($pecah = $sql->fetch_assoc()) {
+			$bungkus[] = $pecah;
+		}
+
+		$kd_pinjam_kembali	= $_POST['kd_pinjam_kembali'];
 		$tgl_pinjam	= $_POST['tgl_pinjam'];
 		$kd_petugas = $_POST['kd_petugas'];
+		$kd_peminjam = $_POST['kd_peminjam'];
 		$tujuan_pinjam	= $_POST['tujuan_pinjam'];
 		$lokasi_pinjam	= $_POST['lokasi_pinjam'];
 		$tanggal_hrs_kmb	= $_POST['tanggal_hrs_kmb'];
 		$no_rm = $_POST['no_rm'];
-		$nm_pasien	= $_POST['nm_pasien'];
-		$tgl_lahir	= $_POST['tgl_lahir'];
-		$status_pjm	= $_POST['status_pjm'];
+		$status_pjm = $_POST['status_pjm'];
+		$nm_pasien		= $bungkus[0]['nm_pasien'];
+		$tgl_lahir		= $bungkus[0]['tgl_lahir'];
 
 
-		$sql = mysqli_query($koneksi, "UPDATE peminjaman SET no_pinjam ='$no_pinjam', tgl_pinjam='$tgl_pinjam', kd_petugas='$kd_petugas', tujuan_pinjam='$tujuan_pinjam' , lokasi_pinjam='$lokasi_pinjam' , tanggal_hrs_kmb='$tanggal_hrs_kmb' , no_rm='$no_rm' , nm_pasien='$nm_pasien', tgl_lahir='$tgl_lahir' , status_pjm='$status_pjm' WHERE no_pinjam ='$no_pinjam'") or die(mysqli_error($koneksi));
+		if ($status_pjm == 'berlangsung') {
+			$sql = mysqli_query($koneksi, "SELECT * FROM pinjam_kembali WHERE kd_pinjam_kembali ='$kd_pinjam_kembali'") or die(mysqli_error($koneksi));
+			if ($sql) {
 
-		if ($sql) {
-			echo '<script>alert("Berhasil menyimpan data."); document.location="dashboard.php?page=tampil_pengembalian_DRM";</script>';
+				$peminjaman = mysqli_query($koneksi, "SELECT no_pinjam FROM peminjaman");
+
+				if (mysqli_num_rows($peminjaman) == 0) {
+					// echo "1";
+					$peminjaman = 'PM001';
+				} else {
+					$last_kd = false;
+					foreach ($peminjaman as $key => $value) {
+						$last_kd = $value['no_pinjam'];
+					}
+					(int)$last_kd = substr($last_kd, 2);
+					$last_kd++;
+					$num_padded = sprintf("%03d", $last_kd);
+					(string)$peminjaman = "PM" . $num_padded;
+				}
+				// echo $peminjaman;
+
+				$sql = 	mysqli_query($koneksi, "INSERT INTO peminjaman
+				VALUES('$peminjaman','$kd_peminjam','$tgl_pinjam','$kd_petugas','$tujuan_pinjam','$lokasi_pinjam','$tanggal_hrs_kmb','$no_rm','$nm_pasien','$tgl_lahir')") or die(mysqli_error($koneksi));
+				if ($sql) {
+					$hapus_peminjaman = mysqli_query($koneksi, "DELETE FROM pinjam_kembali WHERE kd_pinjam_kembali = '$kd_pinjam_kembali'");
+					if ($hapus_peminjaman) {
+
+						echo '<script>alert("Berhasil menyimpan data."); document.location="dashboard.php?page=tampil_pengembalian_DRM";</script>';
+					}
+				} else {
+					echo "gagal insert dan delete";
+				}
+			}
 		} else {
-			echo '<div class="alert alert-warning">Gagal melakukan proses edit data.</div>';
+
+			$sql = mysqli_query($koneksi, "UPDATE pinjam_kembali SET tgl_pinjam='$tgl_pinjam', kd_petugas='$kd_petugas', tujuan_pinjam='$tujuan_pinjam' , lokasi_pinjam='$lokasi_pinjam' , no_rm='$no_rm' , nm_pasien='$nm_pasien', tgl_lahir='$tgl_lahir' WHERE kd_pinjam_kembali = '$kd_pinjam_kembali'") or die(mysqli_error($koneksi));
+
+			if ($sql) {
+				echo 'wididit';
+				// echo '<script>alert("Berhasil menyimpan data."); document.location="dashboard.php?page=tampil_pengembalian_DRM";</script>';
+			} else {
+				echo '<div class="alert alert-warning">Gagal melakukan proses edit data.</div>';
+			}
 		}
 	}
 	?>
 
-	<form action="dashboard.php?page=edit_pengembalian_DRM&no_pinjam=<?php echo $no_pinjam; ?>" method="post">
+	<form action="dashboard.php?page=edit_pengembalian_DRM&kd_pinjam_kembali=<?php echo $kd_pinjam_kembali; ?>" method="post">
 		<!-- asdadad -->
 		<div class="item form-group">
-			<label class="col-form-label col-md-3 col-sm-3 label-align">Nomor Pinjam</label>
+			<label class="col-form-label col-md-3 col-sm-3 label-align">Nomor Pinjam Kembali</label>
 			<div class="col-md-6 col-sm-6 ">
-				<input type="text" name="no_pinjam" class="form-control" size="4" value="<?php echo $data['no_pinjam']; ?>" readonly required>
+				<input type="text" name="kd_pinjam_kembali" class="form-control" size="4" value="<?php echo $data['kd_pinjam_kembali']; ?>" readonly required>
 			</div>
 		</div>
 		<div class="item form-group">
@@ -69,6 +114,29 @@
 			</div>
 
 		</div>
+		<div class="item form-group">
+			<label class="col-form-label col-md-3 col-sm-3 label-align">Kode Peminjam</label>
+			<div class="col-md-6 col-sm-6">
+				<select name="kd_peminjam" class="form-control">
+					<?php
+					$peminjam = mysqli_query($koneksi, "SELECT * FROM peminjam");
+					if (mysqli_num_rows($peminjam) == 0) {
+					?>
+						<option value="">peminjam kosong</option>
+						<?php
+					} else {
+						foreach ($peminjam as $key => $value) {
+
+						?>
+							<option value="<?php echo $value['kd_peminjam']; ?>"><?php echo $value['kd_peminjam'] . '-' . $value['nmpeminjam']; ?></option>
+					<?php
+						}
+					} ?>
+
+				</select>
+			</div>
+		</div>
+
 		<div class="item form-group">
 			<label class="col-form-label col-md-3 col-sm-3 label-align">Kode Petugas</label>
 			<div class="col-md-6 col-sm-6">
@@ -138,18 +206,22 @@
 			<div class="col-md-6 col-sm-6">
 				<div class="btn-group" data-toggle="buttons">
 					<label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-						<input type="radio" class="join-btn" name="status_pjm" value="berlangsung" required>Berlangsung
+						<input type="radio" class="join-btn" name="status_pjm" value="berlangsung">Berlangsung
 					</label>
 
-					<label class="btn btn-danger" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-						<input type="radio" class="join-btn" name="status_pjm" value="dikembalikan" required>Dikembalikan
-					</label>
+
+					<!-- <label class="btn btn-danger" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+						<input type="radio" class="join-btn" name="status_pjm" value="dikembalikan">Dikembalikan
+					</label> -->
 
 					<!-- <label class="btn btn-danger" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
 						<input type="radio" class="join-btn" name="status_pjm" value="Kadaluarsa" required>Kadaluarsa
 					</label> -->
 
 
+				</div>
+				<div class="p-1 small text-danger">
+					memindahkan data ke table peminjaman dapat merubah id no peminjaman harap diperhatikan
 				</div>
 			</div>
 		</div>

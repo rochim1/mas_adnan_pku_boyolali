@@ -1,11 +1,13 @@
 <?php
 session_start();
 
+print_r($_SESSION);
 if (!isset($_SESSION['id'], $_SESSION['user_role_id'])) {
-  header('location:index.php?lmsg=true');
-  exit;
+  if (!isset($_SESSION['kd_peminjam'])) {
+    header('location:index.php?lmsg=true');
+    exit;
+  }
 }
-
 require_once('config/config.php');
 ?>
 
@@ -69,34 +71,62 @@ require_once('config/config.php');
             <div class="profile_info">
               <span>Welcome,
                 <?php
-                echo $_SESSION['nama_depan'];
+                if (!isset($_SESSION['kd_peminjam'])) {
+                  echo $_SESSION['nama_depan'];
+                } else {
+                  echo $_SESSION['nmpeminjam'];
+                }
                 ?></span>
               <h2>
                 <?php
-                $status = $_SESSION['user_role_id'];
-                if ($status == 1) {
-                  echo 'kepala rm';
-                } elseif ($status == 2) {
-                  echo 'admin';
+                if (!isset($_SESSION['kd_peminjam'])) {
+                  $status = $_SESSION['user_role_id'];
+                  if ($status == 1) {
+                    echo 'kepala rm';
+                  } elseif ($status == 2) {
+                    echo 'admin';
+                  } else {
+                    echo 'user';
+                  }
                 } else {
-                  echo 'user';
+                  echo "user";
                 }
                 ?>
               </h2>
             </div>
           </div>
           <!-- /menu profile quick info -->
-
           <br />
-
           <!-- sidebar menu -->
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
               <ul class="nav side-menu">
                 <li><a href="dashboard.php"><i class="fa fa-home"></i> Home <span class="fa fa-chevron"></span></a>
                 </li>
+
+                <?php if (isset($_SESSION['kd_peminjam'])) { ?>
+                  <li><a><i class="fa fa-desktop"></i> Data Peminjamanku <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="dashboard.php?page=tampil_peminjamanku">Tampil Data Peminjamanku</a></li>
+                      <li><a href="dashboard.php?page=tampil_haruskembali">Peringatan Pengembalian</a></li>
+                      <li><a onclick="printPeminjamanku()">Laporan Peminjamanku</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class="fa fa-desktop"></i> Data Pengembalian ku <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="dashboard.php?page=tampil_pengembalianku">Tampil Data Pengembalianku</a></li>
+                      <li><a onclick="printPengembalianku()">Laporan Pengembalianku</a></li>
+                    </ul>
+                  </li>
+                <?php } ?>
+
+
+
+
+
                 <?php
-                if ($_SESSION['user_role_id'] == 2) {
+                if (isset($_SESSION['user_role_id']) == 2) {
                 ?>
                   <li><a href="#"><i class="fa fa-desktop"></i> Data Pasien <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -114,10 +144,9 @@ require_once('config/config.php');
                   </li>
                 <?php
                 }
-                if ($_SESSION['user_role_id'] != 1) {
 
+                if (isset($_SESSION['user_role_id']) !== 1 and !isset($_SESSION['kd_peminjam'])) {
                 ?>
-
                   <li><a><i class="fa fa-desktop"></i> Data Peminjam <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="dashboard.php?page=tampil_peminjam">Tampil Data Peminjam</a></li>
@@ -126,7 +155,8 @@ require_once('config/config.php');
                   </li>
                 <?php
                 }
-                if ($_SESSION['user_role_id'] == 2 or $_SESSION['user_role_id'] == 1) {
+
+                if (isset($_SESSION['user_role_id']) == 2 or isset($_SESSION['user_role_id']) == 1) {
                 ?>
 
                   <li><a><i class="fa fa-desktop"></i> Transaksi <span class="fa fa-chevron-down"></span></a>
@@ -139,7 +169,7 @@ require_once('config/config.php');
                   </li>
 
                   <?php
-                  if ($_SESSION['user_role_id'] != 3) {
+                  if (isset($_SESSION['user_role_id']) !== 3) {
                   ?>
                     <li><a><i class="fa fa-desktop"></i> Laporan <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
@@ -147,7 +177,7 @@ require_once('config/config.php');
                         <li><a onclick="printPetugas()" href="#">Laporan Data Petugas</a></li>
                         <li><a onclick="printPeminjam()" href="#">Laporan Data Peminjam</a></li>
                         <li><a href="dashboard.php?page=cetak_data_pendaftaran_pasien">Laporan Data Pendaftaran Pasien</a></li>
-                        
+
                         <li><a href="dashboard.php?page=cetak_data_peminjaman">Laporan Data Peminjaman</a></li>
                         <li><a href="dashboard.php?page=cetak_data_pengembalian">Laporan Data Pengembalian</a></li>
                         <li><a href="dashboard.php?page=cetak_data_blm_kembali">Laporan Data Belum Kembali</a></li>
@@ -202,7 +232,14 @@ require_once('config/config.php');
             <ul class=" navbar-right">
               <li class="nav-item dropdown open">
                 <a href="#" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                  <img src="assets/images/avatar2.jpg" alt="User Avatar Image"> <?php echo $_SESSION['nama_depan'] ?>
+                  <img src="assets/images/avatar2.jpg" alt="User Avatar Image"> <?php
+                                                                                if (isset($_SESSION['user_role_id'])) {
+                                                                                  echo $_SESSION['nama_depan'];
+                                                                                } else {
+                                                                                  echo $_SESSION['nmpeminjam'];
+                                                                                }
+
+                                                                                ?>
                 </a>
                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="#"> Profile</a>
@@ -371,15 +408,39 @@ require_once('config/config.php');
             # code...
             include 'Laporan/lap.data.pasien.php';
             break;
-          
-            case 'cetak_data_pendaftaran_pasien':
+
+          case 'cetak_data_pendaftaran_pasien':
             # code...
             include 'Laporan/lap.data.pendaftaranpasien.php';
             break;
-            
-            case 'cetak_data_peminjaman':
+
+          case 'cetak_data_peminjaman':
             # code...
             include 'Laporan/lap.data.peminjaman.php';
+            break;
+          case 'tampil_peminjamanku':
+            # code...
+            include 'peminjamanku/tampil.php';
+            break;
+
+          case 'tampil_pengembalianku':
+            # code...
+            include 'pengembalianku/tampil.php';
+            break;
+          
+            case 'detail_pengembalian':
+            # code...
+            include 'pengembalianku/detail_pengembalian.php';
+            break;
+
+          case 'tampil_haruskembali':
+            # code...
+            include 'peminjamanku/haruskembali.php';
+            break;
+          
+            case 'detail_peminjaman':
+            # code...
+            include 'peminjamanku/detail_peminjaman.php';
             break;
 
 
@@ -497,6 +558,16 @@ require_once('config/config.php');
 
     function printPetugas() {
       window.open('Laporan/lap.data.petugas.php', 'laporanPasien', 'height=300,width=500');
+
+    }
+
+    function printPeminjamanku() {
+      window.open('Laporan/lap.data.peminjamanku.php', 'laporanPasien', 'height=300,width=500');
+
+    }
+
+    function printPengembalianku() {
+      window.open('Laporan/lap.data.pengembalianku.php', 'laporanPasien', 'height=300,width=500');
 
     }
 

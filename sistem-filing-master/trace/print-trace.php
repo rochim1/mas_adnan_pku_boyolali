@@ -21,7 +21,12 @@
                 if (mysqli_num_rows($peminjaman) == true) {
                     $data = mysqli_fetch_assoc($peminjaman);
                 } else {
-                    echo "ga ada";
+                        $id = $_GET['trace'];
+                        $peminjaman_kembali = mysqli_query($koneksi, "SELECT * FROM pinjam_kembali where kd_pinjam_kembali = '$id'");
+
+                        if (mysqli_num_rows($peminjaman_kembali) == true) {
+                            $data = mysqli_fetch_assoc($peminjaman_kembali);
+                        }
                 }
 
                 ?>
@@ -86,7 +91,7 @@
 
 else{?>
                     <div class="alert float-right w-100 text-center text-white bg-danger alert-danger" role="alert">
-                        belum dikembalikan
+                        berlangsung
                     </div>
 <?php
                         }
