@@ -86,11 +86,11 @@
 			}
 		} else {
 
-			$sql = mysqli_query($koneksi, "UPDATE pinjam_kembali SET tgl_pinjam='$tgl_pinjam', kd_petugas='$kd_petugas', tujuan_pinjam='$tujuan_pinjam' , lokasi_pinjam='$lokasi_pinjam' , no_rm='$no_rm' , nm_pasien='$nm_pasien', tgl_lahir='$tgl_lahir' WHERE kd_pinjam_kembali = '$kd_pinjam_kembali'") or die(mysqli_error($koneksi));
+			$sql = mysqli_query($koneksi, "UPDATE pinjam_kembali SET kd_peminjam='$kd_peminjam', tgl_pinjam='$tgl_pinjam', kd_petugas='$kd_petugas', tujuan_pinjam='$tujuan_pinjam' , lokasi_pinjam='$lokasi_pinjam' , no_rm='$no_rm' , nm_pasien='$nm_pasien', tgl_lahir='$tgl_lahir' WHERE kd_pinjam_kembali = '$kd_pinjam_kembali'") or die(mysqli_error($koneksi));
 
 			if ($sql) {
-				echo 'wididit';
-				// echo '<script>alert("Berhasil menyimpan data."); document.location="dashboard.php?page=tampil_pengembalian_DRM";</script>';
+				// echo 'wididit';
+				echo '<script>alert("Berhasil menyimpan data."); document.location="dashboard.php?page=tampil_pengembalian_DRM";</script>';
 			} else {
 				echo '<div class="alert alert-warning">Gagal melakukan proses edit data.</div>';
 			}
@@ -128,7 +128,11 @@
 						foreach ($peminjam as $key => $value) {
 
 						?>
-							<option value="<?php echo $value['kd_peminjam']; ?>"><?php echo $value['kd_peminjam'] . '-' . $value['nmpeminjam']; ?></option>
+							<option <?php
+									if ($data['kd_peminjam'] == $value['kd_peminjam']) {
+										echo "selected";
+									}
+									?> value="<?php echo $value['kd_peminjam']; ?>"><?php echo $value['kd_peminjam'] . '-' . $value['nmpeminjam']; ?></option>
 					<?php
 						}
 					} ?>
@@ -146,17 +150,18 @@
 					if (mysqli_num_rows($petugas) == 0) {
 					?>
 						<option value="">petugas kosong</option>
-					<?php
+						<?php
 					} else {
 						foreach ($petugas as $key => $value) {
-						}
-					?>
-						<option selected="<?php
-											if ($data['kd_petugas'] == $value['kd_petugas']) {
-												echo "selected";
-											}
-											?>" value="<?php echo $value['kd_petugas']; ?>"><?php echo $value['kd_petugas'] . '-' . $value['nm_petugas']; ?></option>
+
+						?>
+							<option <?php
+									if ($data['kd_petugas'] == $value['kd_petugas']) {
+										echo "selected";
+									}
+									?> value="<?php echo $value['kd_petugas']; ?>"><?php echo $value['kd_petugas'] . '-' . $value['nm_petugas']; ?></option>
 					<?php
+						}
 					} ?>
 
 				</select>
@@ -187,15 +192,15 @@
 					if (mysqli_num_rows($pasien) == 0) {
 					?>
 						<option value="">pasien kosong</option>
-					<?php
+						<?php
 					} else {
 						foreach ($pasien as $key => $value) {
-						}
-					?>
-						<option selected="<?php if ($data['no_rm'] == $value['no_rm']) {
-												echo "selected";
-											} ?>" value="<?php echo $value['no_rm']; ?>"><?php echo $value['no_rm'] . '-' . $value['nm_pasien']; ?></option>
+						?>
+							<option <?php if ($data['no_rm'] == $value['no_rm']) {
+										echo "selected";
+									} ?> value="<?php echo $value['no_rm']; ?>"><?php echo $value['no_rm'] . '-' . $value['nm_pasien']; ?></option>
 					<?php
+						}
 					} ?>
 				</select>
 			</div>
@@ -221,7 +226,7 @@
 
 				</div>
 				<div class="p-1 small text-danger">
-					memindahkan data ke table peminjaman dapat merubah id no peminjaman harap diperhatikan
+					memindahkan data ke table peminjaman dapat merubah(memperbarui) id no peminjaman harap diperhatikan!
 				</div>
 			</div>
 		</div>

@@ -164,6 +164,7 @@ require_once('config/config.php');
                       <li><a href="dashboard.php?page=tampil_pasien_PRJ">Transaksi Pendaftaran Pasien Rawat Jalan</a></li>
                       <li><a href="dashboard.php?page=tampil_peminjaman_DRM">Transaksi Peminjaman DRM</a></li>
                       <li><a href="dashboard.php?page=tampil_pengembalian_DRM">Transaksi Pengembalian</a></li>
+                      <li><a href="dashboard.php?page=peringatan_peminjaman">Peringatan Peminjaman</a></li>
                       <li><a href="dashboard.php?page=tampil_pengembalian_DRM">Sistem Retensi</a></li>
                     </ul>
                   </li>
@@ -441,6 +442,11 @@ require_once('config/config.php');
             case 'detail_peminjaman':
             # code...
             include 'peminjamanku/detail_peminjaman.php';
+            break;
+            
+            case 'peringatan_peminjaman':
+            # code...
+            include 'PeminjamanDRM/peringatan_peminjaman.php';
             break;
 
 

@@ -6,15 +6,12 @@ include('/config/config.php');
 
 <div class="container" style="margin-top:20px">
 	<center>
-		<font size="6">Transaksi Peminjaman DRM</font>
+		<font size="6">Harap Segera dikembalikan</font>
 	</center>
 	<hr>
-	<a href="dashboard.php?page=tambah_peminjaman_DRM"><button class="btn btn-dark right">Tambah Data</button></a>
-		
-		<button onclick="trig_print()" class="btn btn-primary right" on>Print</button>
 
 	<div class="table-responsive mt-2">
-		<table aria-label="Data Peminjaman" id="myTable" class="table table-striped jambo_table bulk_action">
+		<table aria-label="Data Pengembalian" id="myTable" class="table table-striped jambo_table bulk_action">
 			<thead>
 				<tr>
 					<th>No</th>
@@ -31,28 +28,20 @@ include('/config/config.php');
 			<tbody>
 				<?php
 				//query ke database SELECT tabel mahasiswa urut berdasarkan id yang paling besar
-				$sql = mysqli_query($koneksi, "SELECT * FROM peminjaman") or die(mysqli_error($koneksi));
+				$kd_peminjam = $_SESSION['kd_peminjam'];
+				$hari_ini = date("Y-m-d");
+				$sql = mysqli_query($koneksi, "SELECT * FROM peminjaman WHERE tanggal_hrs_kmb <= '$hari_ini' ORDER BY kd_peminjam ASC") or die(mysqli_error($koneksi));
 				//jika query diatas menghasilkan nilai > 0 maka menjalankan script di bawah if...
 				if (mysqli_num_rows($sql) > 0) {
-					
 					
 					//membuat variabel $no untuk menyimpan nomor urut
 					$no = 1;
 					//melakukan perulangan while dengan dari dari query $sql
 					while ($data = mysqli_fetch_assoc($sql)) {
 						//menampilkan data perulangan
-						$hari_ini = date("Y-m-d");
-						$hrs_kembali = date('Y-m-d', strtotime($data['tanggal_hrs_kmb']));
-						
-						$peringatan = false;
-					if ( $hrs_kembali <= $hari_ini) {
-						$peringatan = true;
-					}
-						echo '
-						<tr ';
-						if ($peringatan) {
-							echo 'class="bg-danger text-white"';
-						}
+						// print_r($data);
+					
+						echo '<tr class="bg-danger text-white"';
 						echo'>
 							<td>' . $no++ . '</td>
 						
@@ -64,12 +53,8 @@ include('/config/config.php');
 							<td>' . date("d M Y", strtotime($data['tanggal_hrs_kmb'])) . '</td>
 							<td>' . $data['no_rm'] . '</td>
 							<td>' . $data['nm_pasien'] . '</td>
-							
-							
-							<td width="115px">
-								<a href="dashboard.php?page=edit_peminjaman_DRM&no_pinjam=' . $data['no_pinjam'] . '" class="btn btn-secondary btn-sm">Edit</a>
-								<a href="dashboard.php?page=delete_peminjaman_PRJ&no_pinjam=' . $data['no_pinjam'] . '" class="btn btn-danger btn-sm" onclick="return confirm(\'Yakin ingin menghapus data ini?\')">Delete</a>
-								<a target="blank" href="trace/print-trace.php?trace=' . $data['no_pinjam'] . '" class="btn btn-success btn-sm")">Trace</a>
+							<td>
+								<a href="dashboard.php?page=detail_peminjaman&no_pinjam=' . $data['no_pinjam'] . '" class="btn btn-secondary btn-sm">Edit</a>
 							</td>
 						</tr>
 						';
