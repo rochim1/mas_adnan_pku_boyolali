@@ -77,6 +77,30 @@ if (isset($_SESSION['user_role_id'])) {
   
 }
 
+if (isset($_SESSION['kd_peminjam'])) { {
+        // session = peminjam
+        $exception = [
+            'tampil_pasien',
+            'tambah_pasien',
+            'tampil_petugas',
+            'tambah_petugas',
+            'tampil_pasien_PRJ'
+        ];
+
+        if (count($exception)) {
+            foreach ($exception as $key => $value) {
+                if (
+                    $queries['page'] == $value
+                ) {
+                    header('HTTP/1.1 404 Not Found');
+                    // header('HTTP/1.0 404 Forbidden', TRUE, 404); 
+                    die(header('location: 404.php'));
+                }
+            }
+        }
+    }
+}
+
 
 
 
