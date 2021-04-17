@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-print_r($_SESSION);
+// print_r($_SESSION);
 if (!isset($_SESSION['id'], $_SESSION['user_role_id'])) {
   if (!isset($_SESSION['kd_peminjam'])) {
     header('location:index.php?lmsg=true');
@@ -21,7 +21,7 @@ require_once('config/config.php');
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="assets/images/favicon.png" type="image/ico" />
+  <link rel="icon" href="assets/images/favicon-32x32.png" type="image/ico" />
   <style>
     #myTable tr td {
       padding: 10px 18px;
@@ -165,7 +165,7 @@ require_once('config/config.php');
                       <li><a href="dashboard.php?page=tampil_peminjaman_DRM">Transaksi Peminjaman DRM</a></li>
                       <li><a href="dashboard.php?page=tampil_pengembalian_DRM">Transaksi Pengembalian</a></li>
                       <li><a href="dashboard.php?page=peringatan_peminjaman">Peringatan Peminjaman</a></li>
-                      <li><a href="dashboard.php?page=tampil_pengembalian_DRM">Sistem Retensi</a></li>
+                      <li><a href="dashboard.php?page=retensi">Sistem Retensi</a></li>
                     </ul>
                   </li>
 
@@ -178,13 +178,14 @@ require_once('config/config.php');
                         <li><a onclick="printPetugas()" href="#">Laporan Data Petugas</a></li>
                         <li><a onclick="printPeminjam()" href="#">Laporan Data Peminjam</a></li>
                         <li><a href="dashboard.php?page=cetak_data_pendaftaran_pasien">Laporan Data Pendaftaran Pasien</a></li>
-
                         <li><a href="dashboard.php?page=cetak_data_peminjaman">Laporan Data Peminjaman</a></li>
+
                         <li><a href="dashboard.php?page=cetak_data_pengembalian">Laporan Data Pengembalian</a></li>
                         <li><a href="dashboard.php?page=cetak_data_blm_kembali">Laporan Data Belum Kembali</a></li>
-                        <li><a href="dashboard.php?page=lokasi_peminjaman">Laporan Data Lokasi Peminjaman</a></li>
-                        <li><a href="#">Laporan Data Pengendalian</a></li>
-                        <li><a href="#">Laporan Data Keterlambatan</a></li>
+                        <li><a onclick="printLokasiPinjam()">Laporan Data Lokasi Peminjaman</a></li>
+                        <li><a onclick="printPengendalian()">Laporan Data Pengendalian</a></li>
+
+                        <li><a onclick="printKeterlambatan()">Laporan Data Keterlambatan</a></li>
                       </ul>
                     </li>
                 <?php
@@ -419,6 +420,17 @@ require_once('config/config.php');
             # code...
             include 'Laporan/lap.data.peminjaman.php';
             break;
+
+          case 'cetak_data_blm_kembali':
+            # code...
+            include 'Laporan/lap.data.belumkembali.php';
+            break;
+
+          case 'cetak_data_pengembalian':
+            # code...
+            include 'Laporan/lap.data.pengembalian.php';
+            break;
+
           case 'tampil_peminjamanku':
             # code...
             include 'peminjamanku/tampil.php';
@@ -428,8 +440,8 @@ require_once('config/config.php');
             # code...
             include 'pengembalianku/tampil.php';
             break;
-          
-            case 'detail_pengembalian':
+
+          case 'detail_pengembalian':
             # code...
             include 'pengembalianku/detail_pengembalian.php';
             break;
@@ -438,15 +450,30 @@ require_once('config/config.php');
             # code...
             include 'peminjamanku/haruskembali.php';
             break;
-          
-            case 'detail_peminjaman':
+
+          case 'detail_peminjaman':
             # code...
             include 'peminjamanku/detail_peminjaman.php';
             break;
-            
-            case 'peringatan_peminjaman':
+
+          case 'peringatan_peminjaman':
             # code...
             include 'PeminjamanDRM/peringatan_peminjaman.php';
+            break;
+
+          case 'retensi':
+            # code...
+            include 'Retensi/tampil.php';
+            break;
+
+          case 'delete_retensi':
+            # code...
+            include 'Retensi/delete.php';
+            break;
+
+          case 'recover_retensi':
+            # code...
+            include 'Retensi/recover.php';
             break;
 
 

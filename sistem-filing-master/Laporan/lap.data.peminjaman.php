@@ -62,9 +62,10 @@ include('../config/config.php');
         <th>Nama Pasien</th>
         <th>Tujuan Pinjam</th>
         <th>Lokasi Pinjam</th>
-        <th>tgl Hrs Kembali</th>
+        <th>tgl pinjam</th>
+        <th>tgl harus kembali</th>
         <th>Kd Petugas</th>
-        <th>status</th>
+        
       </tr>
     </thead>
     <tbody>
@@ -95,10 +96,11 @@ include('../config/config.php');
                 <td>' . $data['nm_pasien'] . '</td>
                 <td>' . $data['tujuan_pinjam'] . '</td>
                 <td>' . $data['lokasi_pinjam'] . '</td>
-                <td>' . $data['tanggal_hrs_kmb'] . '</td>
-                <td>' . $data['kd_petugas'] . '</td>
-                <td>' . $data['status_pjm'] . '</td>
                 
+                <td>' . date("Y-m-d", strtotime($data['tgl_pinjam'])) . '</td>
+                <td>' . date("Y-m-d" , strtotime($data['tanggal_hrs_kmb'])) . '</td>
+
+                <td>' . $data['kd_petugas'] . '</td>
               </tr>
               ';
           // $no++;

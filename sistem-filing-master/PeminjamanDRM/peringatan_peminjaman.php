@@ -45,7 +45,7 @@ include('/config/config.php');
 						echo'>
 							<td>' . $no++ . '</td>
 						
-							<td>' . date("d M Y", strtotime($data['tgl_pinjam'])) . '</td>
+							<td>' . date("Y-m-d", strtotime($data['tgl_pinjam'])) . '</td>
 							
 							<td>' . $data['kd_petugas'] . '</td>
 							<td>' . $data['tujuan_pinjam'] . '</td>
@@ -55,6 +55,7 @@ include('/config/config.php');
 							<td>' . $data['nm_pasien'] . '</td>
 							<td>
 								<a href="dashboard.php?page=detail_peminjaman&no_pinjam=' . $data['no_pinjam'] . '" class="btn btn-secondary btn-sm">Edit</a>
+								<a href="dashboard.php?page=delete_peminjaman_PRJ&no_pinjam=' . $data['no_pinjam'] . '" class="btn btn-danger btn-sm" onclick="return confirm(\'Yakin ingin menghapus data ini?\')">Delete</a>
 							</td>
 						</tr>
 						';

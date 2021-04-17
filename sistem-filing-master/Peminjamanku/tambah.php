@@ -43,11 +43,13 @@ if (isset($_POST['submit'])) {
 		$tgl_lahir		= $bungkus[0]['tgl_lahir'];
 	}
 
-
+	$hari_ini = date("Y-m-d");
+	$harus_kembali = date('Y-m-d', strtotime($hari_ini . ' + 2 days'));
 
 	$cek = mysqli_query($koneksi, "SELECT * FROM peminjaman WHERE no_pinjam='$no_pinjam'") or die(mysqli_error($koneksi));
 	if (mysqli_num_rows($cek) == 0) {
 		$sql = mysqli_query($koneksi, "INSERT INTO peminjaman (no_pinjam,kd_peminjam, tgl_pinjam, kd_petugas, tujuan_pinjam, lokasi_pinjam, tanggal_hrs_kmb, no_rm, nm_pasien, tgl_lahir) VALUES('$no_pinjam','$kd_peminjam', '$tgl_pinjam', '$kd_petugas', '$tujuan_pinjam','$lokasi_pinjam','$tanggal_hrs_kmb','$no_rm','$nm_pasien','$tgl_lahir')") or die(mysqli_error($koneksi));
+		
 
 		if ($sql) {
 			echo '<script>alert("Berhasil menambahkan data."); document.location="dashboard.php?page=tampil_peminjaman_DRM";</script>';
@@ -60,10 +62,6 @@ if (isset($_POST['submit'])) {
 }
 ?>
 
-<?php
-$hari_ini = date("Y-m-d");
-$harus_kembali = date('Y-m-d', strtotime($hari_ini . ' + 2 days'));
-?>
 <!-- terakhir sampai siniiiiiihhhhhhhhhhhhh.. -->
 <form action="dashboard.php?page=tambah_peminjaman_DRM" method="post">
 	<div class="item form-group">

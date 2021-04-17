@@ -7,16 +7,16 @@ include('header.php');
 
 <div class="container">
   <center>
-    <font size="6">Laporan Data Pengendalian</font>
+    <font size="6">Laporan Data Lokasi Pinjam</font>
   </center>
   <hr>
 
   <div class="table-responsive mt-2">
-    <table aria-label="Laporan Data Pengendalian" id="myTable" class="table table-striped jambo_table bulk_action">
+    <table aria-label="Laporan Data Lokasi Pinjam" id="myTable" class="table table-striped jambo_table bulk_action">
       <thead>
         <tr>
           <th>No</th>
-          <th>Kode Peminjam</th>
+          <th>Lokasi Pinjam</th>
           <th>jumlah</th>
         </tr>
       </thead>
@@ -27,7 +27,7 @@ include('header.php');
         $hari_ini = date("Y-m-d");
         $sql = mysqli_query($koneksi, "SELECT *, COUNT(*) as jumlah 
 FROM peminjaman 
-GROUP BY kd_peminjam;
+GROUP BY lokasi_pinjam;
         ") or die(mysqli_error($koneksi));
         //jika query diatas menghasilkan nilai > 0 maka menjalankan script di bawah if...
         if (mysqli_num_rows($sql) > 0) {
@@ -43,7 +43,7 @@ GROUP BY kd_peminjam;
             echo '>
 							<td>' . $no++ . '</td>
 						
-							<td>' . $data['kd_peminjam'] . '</td>
+							<td>' . $data['lokasi_pinjam'] . '</td>
 							<td>' . $data['jumlah'] . '</td>
 						</tr>
 						';

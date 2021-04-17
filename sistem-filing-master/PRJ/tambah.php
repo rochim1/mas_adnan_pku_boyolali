@@ -40,11 +40,12 @@ if (isset($_POST['submit'])) {
 	$pekerjaan		= $_POST['pekerjaan'];
 	$tmp_lahir		= $_POST['tmp_lahir'];
 	$jenis_klm		= $_POST['jenis_klm'];
+	$hari_ini		= date('Y-m-d');
 
 	$cek = mysqli_query($koneksi, "SELECT * FROM pasien WHERE no_rm='$no_rm'") or die(mysqli_error($koneksi));
 
 	if (mysqli_num_rows($cek) == 0) {
-		$sql = mysqli_query($koneksi, "INSERT INTO pasien(no_rm, nm_pasien, tgl_lahir, alamat,no_telp,pekerjaan,tmp_lahir,jenis_klm) VALUES('$no_rm', '$nm_pasien', '$tgl_lahir', '$alamat', '$no_telp', '$pekerjaan', '$tmp_lahir', '$jenis_klm')") or die(mysqli_error($koneksi));
+		$sql = mysqli_query($koneksi, "INSERT INTO pasien(no_rm, nm_pasien, tgl_lahir, alamat,no_telp,pekerjaan,tmp_lahir,jenis_klm,tgl_daftar,recent_use) VALUES('$no_rm', '$nm_pasien', '$tgl_lahir', '$alamat', '$no_telp', '$pekerjaan', '$tmp_lahir', '$jenis_klm','$hari_ini','$hari_ini')") or die(mysqli_error($koneksi));
 
 		if ($sql) {
 			echo '<script>alert("Berhasil menambahkan data."); document.location="dashboard.php?page=tampil_pasien";</script>';

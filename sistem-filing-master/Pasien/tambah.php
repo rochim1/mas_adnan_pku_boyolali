@@ -8,7 +8,7 @@
 			// $max = mysqli_query($koneksi, "SELECT MAX(no_rm) FROM pasien");
 			
 			if (mysqli_num_rows($no_rm) == 0) {
-				$no_rm = 'RM001';	
+				$no_rm = 'RM001' . date("Ymd");	
 			}else {
 				
 				$last_rm = false;
@@ -18,7 +18,7 @@
 				(int)$last_rm = substr($last_rm, 2);  
 				$last_rm++;
 				$num_padded = sprintf("%03d", $last_rm);
-				(string)$no_rm = "RM".$num_padded;
+				(string)$no_rm = "RM".$num_padded.date("Ymd");
 			}
 			
 			
@@ -43,7 +43,7 @@
 			$cek = mysqli_query($koneksi, "SELECT * FROM pasien WHERE no_rm='$no_rm'") or die(mysqli_error($koneksi));
 
 			if(mysqli_num_rows($cek) == 0){
-				$sql = mysqli_query($koneksi, "INSERT INTO pasien(no_rm, nm_pasien, tgl_lahir, alamat,no_telp,pekerjaan,tmp_lahir,jenis_klm,tgl_daftar) VALUES('$no_rm', '$nm_pasien', '$tgl_lahir', '$alamat', '$no_telp', '$pekerjaan', '$tmp_lahir', '$jenis_klm','$hari_ini')") or die(mysqli_error($koneksi));
+				$sql = mysqli_query($koneksi, "INSERT INTO pasien(no_rm, nm_pasien, tgl_lahir, alamat,no_telp,pekerjaan,tmp_lahir,jenis_klm,tgl_daftar,recent_use) VALUES('$no_rm', '$nm_pasien', '$tgl_lahir', '$alamat', '$no_telp', '$pekerjaan', '$tmp_lahir', '$jenis_klm','$hari_ini','$hari_ini')") or die(mysqli_error($koneksi));
 
 				if($sql){
 					echo '<script>alert("Berhasil menambahkan data."); document.location="dashboard.php?page=tampil_pasien";</script>';
