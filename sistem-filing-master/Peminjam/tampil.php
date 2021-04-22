@@ -21,7 +21,7 @@ include('/config/config.php');
 					<th>Nama Peminjam</th>
 					<th>Alamat</th>
 					<th>No Telp</th>
-					<th>Keterangan</th>
+					<th>Bagian</th>
 					<th>Aksi</th>
 				</tr>
 			</thead>

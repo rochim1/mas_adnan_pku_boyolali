@@ -39,7 +39,7 @@ GROUP BY lokasi_pinjam;
             //menampilkan data perulangan
             // print_r($data);
 
-            echo '<tr class="bg-danger text-white"';
+            echo '<tr';
             echo '>
 							<td>' . $no++ . '</td>
 						
@@ -59,5 +59,7 @@ GROUP BY lokasi_pinjam;
         ?>
       <tbody>
     </table>
+    <?php include 'footer.php';
+    ?>
   </div>
 </div>

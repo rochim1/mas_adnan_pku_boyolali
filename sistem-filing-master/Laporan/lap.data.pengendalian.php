@@ -59,5 +59,7 @@ GROUP BY kd_peminjam;
         ?>
       <tbody>
     </table>
+    <?php include 'footer.php';
+    ?>
   </div>
 </div>

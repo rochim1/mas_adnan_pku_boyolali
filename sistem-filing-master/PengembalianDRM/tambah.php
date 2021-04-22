@@ -6,7 +6,7 @@
 <hr>
 <?php
 
-$no_pm = mysqli_query($koneksi, "SELECT * FROM peminjaman where status_pjm ='berlangsung'") or die(mysqli_error($koneksi));
+$no_pm = mysqli_query($koneksi, "SELECT * FROM peminjaman") or die(mysqli_error($koneksi));
 if (mysqli_num_rows($no_pm) !== 0) {
 	$data = $no_pm;
 }

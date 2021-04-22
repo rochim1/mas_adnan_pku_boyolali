@@ -67,6 +67,7 @@ include('/config/config.php');
 							<td>' . $data['nm_pasien'] . '</td>
 							<td>
 								<a href="dashboard.php?page=detail_pengembalian&kd_pengembalian=' . $data['kd_pinjam_kembali'] . '" class="btn btn-secondary btn-sm">Detail</a>
+								<a target="blank" href="trace/print-trace.php?trace=' . $data['no_pinjam'] . '" class="btn btn-success btn-sm")">Trace</a>
 							</td>
 						</tr>
 						';

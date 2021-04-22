@@ -16,6 +16,7 @@ include('header.php');
       <thead>
         <tr>
           <th>No</th>
+          <th>KD Pinjam</th>
           <th>Tanggal Pinjam</th>
           <th>Kode Petugas</th>
           <th>Tujuan Pinjam</th>
@@ -45,6 +46,7 @@ include('header.php');
             echo '>
 							<td>' . $no++ . '</td>
 						
+							<td>' . $data['no_pinjam'] . '</td>
 							<td>' . date("Y-m-d", strtotime($data['tgl_pinjam'])) . '</td>
 							
 							<td>' . $data['kd_petugas'] . '</td>
@@ -67,5 +69,7 @@ include('header.php');
         ?>
       <tbody>
     </table>
+    <?php include 'footer.php';
+    ?>
   </div>
 </div>

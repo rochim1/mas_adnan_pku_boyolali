@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2021 at 03:40 AM
+-- Generation Time: Apr 20, 2021 at 07:34 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -183,8 +183,7 @@ CREATE TABLE `tbl_users` (
 
 INSERT INTO `tbl_users` (`id`, `user_role_id`, `nama_depan`, `nama_belakang`, `email`, `password`) VALUES
 (1, 1, 'john', 'doe', 'kepalarm@gmail.com', '0192023a7bbd73250516f069df18b500'),
-(2, 2, 'ahsan', 'zameer', 'ahsan@example.com', '3d68b18bd9042ad3dc79643bde1ff351'),
-(3, 3, 'sarah', 'khan', 'sarah@example.com', 'ec26202651ed221cf8f993668c459d46');
+(2, 2, 'ahsan', 'zameer', 'ahsan@example.com', '3d68b18bd9042ad3dc79643bde1ff351');
 
 --
 -- Indexes for dumped tables

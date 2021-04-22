@@ -20,6 +20,7 @@ include('/config/config.php');
 			<thead>
 				<tr>
 					<th>No</th>
+					<th>No RM</th>
 					<th>Nama Pasien</th>
 					<th>Tempat Tanggal Lahir</th>
 					<th>Jenis Kelamin</th>
@@ -43,6 +44,7 @@ include('/config/config.php');
 						echo '
 						<tr>
 							<td>' . $no++ . '</td>
+							<td>' . $data['no_rm'] . '</td>
 							<td>' . $data['nm_pasien'] . '</td>
 							<td>' . $data['tmp_lahir'] . ' ' . $data['tgl_lahir'] . ' </td>
 							<td>' . $data['jenis_klm'] . '</td>

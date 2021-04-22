@@ -1,13 +1,23 @@
 <?php
 // print_r($_SESSION);
-if (isset($_SESSION['user_role_id'])) {
-    $user_role = $_SESSION['user_role_id'];
-    $url_path = $_SERVER['REQUEST_URI']; // untuk full url
+if (isset($_SESSION['user_role_id']) or isset($_SESSION['kd_peminjam'])) {
+    if (isset($_SESSION['user_role_id'])) {
+        $user_role = $_SESSION['user_role_id'];
+        $url_path = $_SERVER['REQUEST_URI']; // untuk full url
 
-    $queries = array();
-    parse_str($_SERVER['QUERY_STRING'], $queries);
-    error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
+        $queries = array();
+        parse_str($_SERVER['QUERY_STRING'], $queries);
+        error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
     // print_r($queries['page']);
+    }elseif (isset($_SESSION['kd_peminjam'])){
+        $user_role = $_SESSION['kd_peminjam'];
+        $url_path = $_SERVER['REQUEST_URI']; // untuk full url
+
+        $queries = array();
+        parse_str($_SERVER['QUERY_STRING'], $queries);
+        error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
+    // print_r($queries['page']);
+    }
     
     if ($user_role == 1) {
         // 1 = kepala rm
@@ -75,7 +85,7 @@ if (isset($_SESSION['user_role_id'])) {
         }
     }
   
-}
+
 
 if (isset($_SESSION['kd_peminjam'])) { {
         // session = peminjam
@@ -89,9 +99,7 @@ if (isset($_SESSION['kd_peminjam'])) { {
 
         if (count($exception)) {
             foreach ($exception as $key => $value) {
-                if (
-                    $queries['page'] == $value
-                ) {
+                if ($queries['page'] == $value) {
                     header('HTTP/1.1 404 Not Found');
                     // header('HTTP/1.0 404 Forbidden', TRUE, 404); 
                     die(header('location: 404.php'));
@@ -100,11 +108,7 @@ if (isset($_SESSION['kd_peminjam'])) { {
         }
     }
 }
-
-
-
-
-
+}
 
 
 

@@ -58,6 +58,7 @@ include('../config/config.php');
     <thead>
       <tr>
         <th>No</th>
+        <th>KD Pinjam</th>
         <th>No RM</th>
         <th>Nama Pasien</th>
         <th>Tujuan Pinjam</th>
@@ -92,6 +93,7 @@ include('../config/config.php');
           echo '
               <tr>
                 <td>' . $no++ . '</td>
+                <td>' . $data['no_pinjam'] . '</td>
                 <td>' . $data['no_rm'] . '</td>
                 <td>' . $data['nm_pasien'] . '</td>
                 <td>' . $data['tujuan_pinjam'] . '</td>

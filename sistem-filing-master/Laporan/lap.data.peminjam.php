@@ -16,6 +16,7 @@ include('header.php');
     <thead>
       <tr>
         <th>No</th>
+        <th>KD peminjam</th>
         <th>Nama peminjam</th>
         <th>No Telp</th>
         <th>Alamat</th>
@@ -46,6 +47,7 @@ include('header.php');
           echo '
               <tr>
                 <td>' . $no++ . '</td>
+                <td>' . $data['kd_peminjam'] . '</td>
                 <td>' . $data['nmpeminjam'] . '</td>
                 <td>' . $data['no_telp'] . '</td>
                 <td>' . $data['alamat'] . '</td>
@@ -65,6 +67,8 @@ include('header.php');
       ?>
     <tbody>
   </table>
+  <?php include 'footer.php';
+  ?>
 </div>
 
 </div>

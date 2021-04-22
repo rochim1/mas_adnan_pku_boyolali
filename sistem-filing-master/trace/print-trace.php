@@ -80,22 +80,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <?php
-                        if ($data['status_pjm'] == "dikembalikan") {
-?>
-                    <div class="alert float-right w-100 text-center text-white bg-primary alert-primary" role="alert">
-                        dikembalikan
-                    </div>
-<?php
-                        }
-
-else{?>
-                    <div class="alert float-right w-100 text-center text-white bg-danger alert-danger" role="alert">
-                        berlangsung
-                    </div>
-<?php
-                        }
-                    ?>
+                    
 
                 </div>
             </form>

@@ -8,7 +8,7 @@
 			// $max = mysqli_query($koneksi, "SELECT MAX(no_rm) FROM pasien");
 			
 			if (mysqli_num_rows($no_rm) == 0) {
-				$no_rm = 'RM001' . date("Ymd");	
+				$no_rm = 'RM1' . date("ymd");	
 			}else {
 				
 				$last_rm = false;
@@ -17,15 +17,10 @@
 				}
 				(int)$last_rm = substr($last_rm, 2);  
 				$last_rm++;
-				$num_padded = sprintf("%03d", $last_rm);
-				(string)$no_rm = "RM".$num_padded.date("Ymd");
+				// $num_padded = sprintf("%03d", $last_rm);
+				(string)$no_rm = "RM".$num_padded.date("ymd");
 			}
 			
-			
-
-
-
-
 		if(isset($_POST['submit'])){
 
 			// $no_rm	= $_POST['no_rm'];

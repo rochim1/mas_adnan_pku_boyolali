@@ -1,7 +1,8 @@
 <?php
 session_start();
-
 // print_r($_SESSION);
+
+print_r($_SESSION);
 if (!isset($_SESSION['id'], $_SESSION['user_role_id'])) {
   if (!isset($_SESSION['kd_peminjam'])) {
     header('location:index.php?lmsg=true');
@@ -55,7 +56,7 @@ require_once('config/config.php');
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
             <center>
-              &nbsp; <a href="index.php" class="fa fa-mortar-board fa-2x" style="color:#fff;"><span>
+              &nbsp; <a href="index.php" class="fa fa-hospital-o fa-2x" style="color:#fff;"><span>
                   <font size="4.95" color="white" face="Helvetica Neue">SISTEM FILLING</font>
                 </span></a>
             </center>
@@ -86,10 +87,10 @@ require_once('config/config.php');
                   } elseif ($status == 2) {
                     echo 'admin';
                   } else {
-                    echo 'user';
+                    echo 'userpeminjam';
                   }
                 } else {
-                  echo "user";
+                  echo "peminjam";
                 }
                 ?>
               </h2>
@@ -105,18 +106,18 @@ require_once('config/config.php');
                 </li>
 
                 <?php if (isset($_SESSION['kd_peminjam'])) { ?>
-                  <li><a><i class="fa fa-desktop"></i> Data Peminjamanku <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-desktop"></i> Data Peminjaman <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="dashboard.php?page=tampil_peminjamanku">Tampil Data Peminjamanku</a></li>
+                      <li><a href="dashboard.php?page=tampil_peminjamanku">Tampil Data Peminjaman</a></li>
                       <li><a href="dashboard.php?page=tampil_haruskembali">Peringatan Pengembalian</a></li>
-                      <li><a onclick="printPeminjamanku()">Laporan Peminjamanku</a></li>
+                      <li><a onclick="printPeminjamanku()">Laporan Peminjaman</a></li>
                     </ul>
                   </li>
 
-                  <li><a><i class="fa fa-desktop"></i> Data Pengembalian ku <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-desktop"></i> Data Pengembalian <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="dashboard.php?page=tampil_pengembalianku">Tampil Data Pengembalianku</a></li>
-                      <li><a onclick="printPengembalianku()">Laporan Pengembalianku</a></li>
+                      <li><a href="dashboard.php?page=tampil_pengembalianku">Tampil Data Pengembalian</a></li>
+                      <li><a onclick="printPengembalianku()">Laporan Pengembalian</a></li>
                     </ul>
                   </li>
                 <?php } ?>
@@ -126,7 +127,7 @@ require_once('config/config.php');
 
 
                 <?php
-                if (isset($_SESSION['user_role_id']) == 2) {
+                if ($_SESSION['user_role_id'] == 2) {
                 ?>
                   <li><a href="#"><i class="fa fa-desktop"></i> Data Pasien <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -145,7 +146,7 @@ require_once('config/config.php');
                 <?php
                 }
 
-                if (isset($_SESSION['user_role_id']) !== 1 and !isset($_SESSION['kd_peminjam'])) {
+                if ($_SESSION['user_role_id'] != 1) {
                 ?>
                   <li><a><i class="fa fa-desktop"></i> Data Peminjam <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -156,7 +157,7 @@ require_once('config/config.php');
                 <?php
                 }
 
-                if (isset($_SESSION['user_role_id']) == 2 or isset($_SESSION['user_role_id']) == 1) {
+                if ($_SESSION['user_role_id'] == 2) {
                 ?>
 
                   <li><a><i class="fa fa-desktop"></i> Transaksi <span class="fa fa-chevron-down"></span></a>
@@ -169,32 +170,46 @@ require_once('config/config.php');
                     </ul>
                   </li>
 
-                  <?php
-                  if (isset($_SESSION['user_role_id']) !== 3) {
-                  ?>
-                    <li><a><i class="fa fa-desktop"></i> Laporan <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="dashboard.php?page=cetak_data_pasien">Laporan Data Pasien</a></li>
-                        <li><a onclick="printPetugas()" href="#">Laporan Data Petugas</a></li>
-                        <li><a onclick="printPeminjam()" href="#">Laporan Data Peminjam</a></li>
-                        <li><a href="dashboard.php?page=cetak_data_pendaftaran_pasien">Laporan Data Pendaftaran Pasien</a></li>
-                        <li><a href="dashboard.php?page=cetak_data_peminjaman">Laporan Data Peminjaman</a></li>
-
-                        <li><a href="dashboard.php?page=cetak_data_pengembalian">Laporan Data Pengembalian</a></li>
-                        <li><a href="dashboard.php?page=cetak_data_blm_kembali">Laporan Data Belum Kembali</a></li>
-                        <li><a onclick="printLokasiPinjam()">Laporan Data Lokasi Peminjaman</a></li>
-                        <li><a onclick="printPengendalian()">Laporan Data Pengendalian</a></li>
-
-                        <li><a onclick="printKeterlambatan()">Laporan Data Keterlambatan</a></li>
-                      </ul>
-                    </li>
                 <?php
-                  }
                 }
+                if ($_SESSION['user_role_id'] != 3 and !isset($_SESSION['kd_peminjam'])) {
+                ?>
+                  <li><a><i class="fa fa-desktop"></i> Laporan <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="dashboard.php?page=cetak_data_pasien">Laporan Data Pasien</a></li>
+                      <li><a onclick="printPetugas()" href="#">Laporan Data Petugas</a></li>
+                      <li><a onclick="printPeminjam()" href="#">Laporan Data Peminjam</a></li>
+                      <li><a href="dashboard.php?page=cetak_data_pendaftaran_pasien">Laporan Data Pendaftaran Pasien</a></li>
+                      <li><a href="dashboard.php?page=cetak_data_peminjaman">Laporan Data Peminjaman</a></li>
+
+                      <li><a href="dashboard.php?page=cetak_data_pengembalian">Laporan Data Pengembalian</a></li>
+                      <li><a href="dashboard.php?page=cetak_data_blm_kembali">Laporan Data Belum Kembali</a></li>
+                      <li><a onclick="printLokasiPinjam()">Laporan Data Lokasi Peminjaman</a></li>
+                      <li><a onclick="printPengendalian()">Laporan Data Pengendalian</a></li>
+
+                      <li><a onclick="printKeterlambatan()">Laporan Data Keterlambatan</a></li>
+                    </ul>
+                  </li>
+                <?php
+                }
+
                 ?>
 
 
-                <li><a><i class="fa fa-gear"></i> Settings <span class="fa fa-chevron-down"></span></a>
+                <?php
+
+                if (isset($_SESSION['kd_peminjam'])) {
+                ?>
+                  <li><a><i class="fa fa-desktop"></i> Laporan <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a onclick="printPeminjamanku()">Laporan Data Peminjaman</a></li>
+                      <li><a onclick="printPengembalianku()">Laporan Data Pengembalian</a></li>
+                    </ul>
+                  </li>
+                <?php
+                }
+                ?>
+                <li><a><i class=" fa fa-gear"></i> Settings <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                     <li><a href="#">Settings 1</a></li>
                     <li><a href="#">Settings 2</a></li>
@@ -484,7 +499,21 @@ require_once('config/config.php');
             break;
         }
         ?>
+        <div id="footer_print" class="collapse float-right" style="text-align:right;margin-top:50px">Surakarta,<?php echo date('d-m-Y'); ?><br>
+          <?php
+          if ($_SESSION['user_role_id'] == 1) {
+            echo 'Kepala Rekam Medis RS Universitas Duta Bangsa Surakarta';
+          } else {
+            echo 'admin';
+          }
+          ?>
+          <br><br><br><?php echo $_SESSION['nama_depan'] . ' ' . $_SESSION['nama_belakang']; ?>
+        </div>
+
         <div class="collapse" id="print_area">
+
+        </div>
+        <div class="collapse" id="print_area_2">
 
         </div>
       </div>
@@ -502,7 +531,6 @@ require_once('config/config.php');
       <!-- /footer content -->
     </div>
   </div>
-
   <!-- jQuery -->
   <script src="assets/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap -->
@@ -542,6 +570,11 @@ require_once('config/config.php');
     };
 
     function del_column(callback) {
+      var footer = $("#footer_print").clone();
+      var print_area_2 = $('#print_area_2').html(footer);
+      print_area_2 = $('#print_area_2').children().prop('id', "footer_clone");
+      print_area_2 = $('#print_area_2').children().removeClass('collapse');
+
       var tble = $('#myTable').clone();
       var print_area = $('#print_area').html(tble);
       print_area = $('#print_area').children().prop('id', "tb_clone");
@@ -564,23 +597,35 @@ require_once('config/config.php');
           }
         }
       }
+
+      var tble = $('#myTable').clone();
+
+
+
+
       callback();
     }
+
 
     function print() {
       // var print_area = $("#tb_clone").innerHTML;
       var print_area = document.getElementById('tb_clone').outerHTML;
+      var footer = document.getElementById('footer_clone').outerHTML;
+      // alert(print_area);
+      // alert(footer);
       var printWindow = window.open('', 'myWindow', 'height=300,width=500');
       printWindow.document.write(
         '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">'
       );
       printWindow.document.write(
-        '<div id="print" class="container border-1 border" style="width: 794px; height: 1123px;"> <nav class="pb-0 p-5 pt-0 navbar navbar-light d-inline-block w-100 position-relative"> <a class="navbar-brand d-inline-block position-absolute" href="#" class="p-4"> <img class="m-3" src="assets/images/ump-logo.png" width="120px" alt=""> </a> <div class="position-relative text-center d-inline-block w-100 pt-5 pb-4" style="padding-left: 50px;"> <div class="w-100"> <h3>RS PKU AISYIYAH BOYOLALI</h3> <span> Jl. Pasar Sapi Baru, Dusun 1, Karanggeneng, Kec. Boyolali, <br>Kabupaten Boyolali, Jawa Tengah 57312 </span> </div></div><hr> </nav> <div id="content" class="w-100 h-100 p-3 pt-0">'
+        '<link crossorigin="anonymous"href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"rel="stylesheet"><div class="border border-1 container"id="print"style="width:794px;height:1123px"><nav class="w-100 d-inline-block position-relative navbar navbar-light p-5 pb-0 pt-0"><a class="d-inline-block navbar-brand position-absolute"class="p-4"href="#"><img alt=""class="m-3"src="assets/images/ump-logo.png"width="120px"></a><div class="w-100 d-inline-block position-relative pb-4 pt-5 text-center"style="padding-left:50px"><div class="w-100"><h3 style="padding-left:50px">RS Universitas Duta Bangsa Surakarta</h3><span>Jl. Pasar Sapi Baru, Dusun 1, Karanggeneng, Kec. Boyolali,<br>Kabupaten Boyolali, Jawa Tengah 57312</span></div></div><hr></nav><div class="w-100 pt-0 h-100 p-3"id="content">'
       );
       printWindow.document.write('<h4 class="text-center mt-2 w-50 m-auto m-0">' + $("#myTable").attr('aria-label') +
         '</h4>');
       printWindow.document.write(print_area);
+      printWindow.document.write(footer);
       printWindow.document.write('</div></div>');
+
 
       printWindow.document.close();
       printWindow.focus();

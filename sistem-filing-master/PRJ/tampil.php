@@ -11,13 +11,14 @@ include('/config/config.php');
 	<hr>
 	<a href="dashboard.php?page=tambah_pasien_PRJ"><button class="btn btn-dark right">Tambah Data</button></a>
 
-	<button onclick="trig_print()" class="btn btn-primary right">Print</button>
+	<!-- <button onclick="trig_print()" class="btn btn-primary right">Print</button> -->
 
 	<div class="table-responsive mt-2">
 		<table aria-label="Transaksi Pendaftaran Pasien Rawat Jalan" id="myTable" class="table table-striped jambo_table bulk_action">
 			<thead>
 				<tr>
 					<th>No</th>
+					<th>No RM</th>
 					<th>Nama Pasien</th>
 					<th>Tempat Tanggal Lahir</th>
 					<th>Jenis Kelamin</th>
@@ -41,6 +42,7 @@ include('/config/config.php');
 						echo '
 						<tr>
 							<td>' . $no++ . '</td>
+							<td>' . $data['no_rm'] . '</td>
 							<td>' . $data['nm_pasien'] . '</td>
 							<td>' . $data['tmp_lahir'] . ' ' . $data['tgl_lahir'] . ' </td>
 							<td>' . $data['jenis_klm'] . '</td>

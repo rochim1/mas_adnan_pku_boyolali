@@ -71,7 +71,8 @@ include('/config/config.php');
 							<td>' . $data['nm_pasien'] . '</td>
 							<td>
 								<a href="dashboard.php?page=detail_peminjaman&no_pinjam=' . $data['no_pinjam'] . '" class="btn btn-secondary btn-sm">Detail</a>
-							</td>
+								<a target="blank" href="trace/print-trace.php?trace=' . $data['no_pinjam'] . '" class="btn btn-success btn-sm")">Trace</a>
+								</td>
 							
 						</tr>
 						';

@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include('../config/config.php');
 include('header.php');
 ?>
@@ -16,6 +16,7 @@ include('header.php');
     <thead>
       <tr>
         <th>No</th>
+        <th>KD petugas</th>
         <th>Nama petugas</th>
         <th>No Telp</th>
         <th>Bagian</th>
@@ -46,6 +47,7 @@ include('header.php');
           echo '
               <tr>
                 <td>' . $no++ . '</td>
+                <td>' . $data['kd_petugas'] . '</td>
                 <td>' . $data['nm_petugas'] . '</td>
                 <td>' . $data['no_telp'] . '</td>
                 <td>' . $data['bagian'] . '</td>
@@ -65,6 +67,8 @@ include('header.php');
       ?>
     <tbody>
   </table>
+<?php include 'footer.php';
+ ?>
 </div>
 
 </div>

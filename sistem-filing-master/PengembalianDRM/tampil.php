@@ -11,13 +11,14 @@ include('/config/config.php');
 	<hr>
 	<a href="dashboard.php?page=tambah_pengembalian_DRM"><button class="btn btn-dark right">Tambah Data</button></a>
 		
-		<button onclick="trig_print()" class="btn btn-primary right" on>Print</button>
+		<!-- <button onclick="trig_print()" class="btn btn-primary right" on>Print</button> -->
 
 	<div class="table-responsive mt-2">
 		<table aria-label="Data Pengembalian" id="myTable" class="table table-striped jambo_table bulk_action">
 			<thead>
 				<tr>
 					<th>No</th>
+					<th>KD Pinjam</th>
 					<th>Tanggal Pinjam</th>
 					<th>Kode Petugas</th>
 					<th>Tujuan Pinjam</th>
@@ -45,7 +46,7 @@ include('/config/config.php');
 						
 						echo'>
 							<td>' . $no++ . '</td>
-						
+							<td>' . $data['no_pinjam'] . '</td>
 							<td>' . date("d M Y", strtotime($data['tgl_pinjam'])) . '</td>
 							
 							<td>' . $data['kd_petugas'] . '</td>
