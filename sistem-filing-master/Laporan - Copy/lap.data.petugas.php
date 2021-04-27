@@ -7,21 +7,20 @@ include('header.php');
 
 <div class="container">
   <center>
-    <font size="6">Laporan Data Pendaftaran Pasien</font>
+    <font size="6">Laporan Data Petugas</font>
   </center>
   <hr>
 </div>
 <div class="table-responsive mt-2">
-  <table aria-label="Data peminjam" id="myTable" class="table table-striped jambo_table bulk_action">
+  <table aria-label="Data petugas" id="myTable" class="table table-striped jambo_table bulk_action">
     <thead>
       <tr>
         <th>No</th>
-        <th>No RM</th>
-        <th>Nama Pasien</th>
-        <th>Jen kel</th>
-        <th>Alamat</th>
+        <th>KD petugas</th>
+        <th>Nama petugas</th>
         <th>No Telp</th>
-        <th>Keterangan</th>
+        <th>Bagian</th>
+
       </tr>
     </thead>
     <tbody>
@@ -30,11 +29,11 @@ include('header.php');
         $dari = $_POST['dari'];
         $sampai = $_POST['sampai'];
         // echo $dari.$sampai;
-        $sql = mysqli_query($koneksi, "SELECT * FROM peminjam WHERE tgl_daftar BETWEEN '$dari' AND '$sampai' ORDER BY kd_peminjam ASC") or die(mysqli_error($koneksi));
+        $sql = mysqli_query($koneksi, "SELECT * FROM petugas WHERE tgl_daftar BETWEEN '$dari' AND '$sampai' ORDER BY kd_petugas ASC") or die(mysqli_error($koneksi));
       } else {
         // echo "tidak dari sampai";
         //query ke database SELECT tabel mahasiswa urut berdasarkan id yang paling besar
-        $sql = mysqli_query($koneksi, "SELECT * FROM pasien ORDER BY no_rm ASC") or die(mysqli_error($koneksi));
+        $sql = mysqli_query($koneksi, "SELECT * FROM petugas ORDER BY kd_petugas ASC") or die(mysqli_error($koneksi));
         //jika query diatas menghasilkan nilai > 0 maka menjalankan script di bawah if...
       }
 
@@ -48,12 +47,10 @@ include('header.php');
           echo '
               <tr>
                 <td>' . $no++ . '</td>
-                <td>' . $data['no_rm'] . '</td>
-                <td>' . $data['nm_pasien'] . '</td>
-                <td>' . $data['jenis_klm'] . '</td>
-                <td>' . $data['alamat'] . '</td>
+                <td>' . $data['kd_petugas'] . '</td>
+                <td>' . $data['nm_petugas'] . '</td>
                 <td>' . $data['no_telp'] . '</td>
-                <td>' . $data['tgl_daftar'] . '</td>
+                <td>' . $data['bagian'] . '</td>
                 
               </tr>
               ';
@@ -70,8 +67,8 @@ include('header.php');
       ?>
     <tbody>
   </table>
-  <?php include 'footer.php';
-  ?>
+<?php include 'footer.php';
+ ?>
 </div>
 
 </div>

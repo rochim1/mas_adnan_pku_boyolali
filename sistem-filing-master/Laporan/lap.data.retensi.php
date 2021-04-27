@@ -7,7 +7,7 @@ include('header.php');
 
 <div class="container">
   <center>
-    <font size="6">Laporan Data Pendaftaran Pasien</font>
+    <font size="6">Laporan Data Retensi</font>
   </center>
   <hr>
 </div>
@@ -21,6 +21,7 @@ include('header.php');
         <th>Jen kel</th>
         <th>Alamat</th>
         <th>No Telp</th>
+        <th>tgl retensi</th>
         <th>Keterangan</th>
       </tr>
     </thead>
@@ -34,7 +35,7 @@ include('header.php');
       } else {
         // echo "tidak dari sampai";
         //query ke database SELECT tabel mahasiswa urut berdasarkan id yang paling besar
-        $sql = mysqli_query($koneksi, "SELECT * FROM pasien ORDER BY no_rm ASC") or die(mysqli_error($koneksi));
+        $sql = mysqli_query($koneksi, "SELECT * FROM retensi ORDER BY no_rm ASC") or die(mysqli_error($koneksi));
         //jika query diatas menghasilkan nilai > 0 maka menjalankan script di bawah if...
       }
 
@@ -54,6 +55,7 @@ include('header.php');
                 <td>' . $data['alamat'] . '</td>
                 <td>' . $data['no_telp'] . '</td>
                 <td>' . $data['tgl_daftar'] . '</td>
+                <td>' . $data['tgl_retensi'] . '</td>
                 
               </tr>
               ';

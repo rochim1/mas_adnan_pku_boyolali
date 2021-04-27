@@ -47,7 +47,7 @@ include('/config/config.php');
 							<td>' . $data['bagian'] . '</td>
 							<td>
 								<a href="dashboard.php?page=edit_petugas&kd_petugas=' . $data['kd_petugas'] . '" class="btn btn-secondary btn-sm">Edit</a>
-								<a href="dashboard.php?page=delete_petugas&kd_petugas=' . $data['kd_petugas'] . '" class="btn btn-danger btn-sm" onclick="return confirm(\'Yakin ingin menghapus data ini?\')">Delete</a>
+								<a href="dashboard.php?page=delete_petugas&kd_petugas=' . $data['kd_petugas'] . '" class="btn btn-danger btn-sm" onclick="return confirm(\'jika ada data yang berkaitan pada transaksi peminjaman akan dihapus juga , Yakin ingin menghapus data ini??\')">Delete</a>
 							</td>
 						</tr>
 						';

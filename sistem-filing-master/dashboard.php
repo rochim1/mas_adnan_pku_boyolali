@@ -2,7 +2,6 @@
 session_start();
 // print_r($_SESSION);
 
-print_r($_SESSION);
 if (!isset($_SESSION['id'], $_SESSION['user_role_id'])) {
   if (!isset($_SESSION['kd_peminjam'])) {
     header('location:index.php?lmsg=true');
@@ -176,18 +175,19 @@ require_once('config/config.php');
                 ?>
                   <li><a><i class="fa fa-desktop"></i> Laporan <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="dashboard.php?page=cetak_data_pasien">Laporan Data Pasien</a></li>
+                      <li><a onclick="printPasien()">Laporan Data Pasien</a></li>
                       <li><a onclick="printPetugas()" href="#">Laporan Data Petugas</a></li>
                       <li><a onclick="printPeminjam()" href="#">Laporan Data Peminjam</a></li>
-                      <li><a href="dashboard.php?page=cetak_data_pendaftaran_pasien">Laporan Data Pendaftaran Pasien</a></li>
-                      <li><a href="dashboard.php?page=cetak_data_peminjaman">Laporan Data Peminjaman</a></li>
+                      <li><a onclick="printPendaftaranPasien()">Laporan Data Pendaftaran Pasien</a></li>
+                      <li><a onclick="printPeminjaman()">Laporan Data Peminjaman</a></li>
 
-                      <li><a href="dashboard.php?page=cetak_data_pengembalian">Laporan Data Pengembalian</a></li>
-                      <li><a href="dashboard.php?page=cetak_data_blm_kembali">Laporan Data Belum Kembali</a></li>
+                      <li><a onclick="printPengembalian()">Laporan Data Pengembalian</a></li>
+                      <li><a onclick="printBelumKembali()">Laporan Data Belum Kembali</a></li>
                       <li><a onclick="printLokasiPinjam()">Laporan Data Lokasi Peminjaman</a></li>
                       <li><a onclick="printPengendalian()">Laporan Data Pengendalian</a></li>
 
                       <li><a onclick="printKeterlambatan()">Laporan Data Keterlambatan</a></li>
+                      <li><a onclick="printRetensi()">Laporan Data Retensi</a></li>
                     </ul>
                   </li>
                 <?php
@@ -634,6 +634,11 @@ require_once('config/config.php');
       }, 3000);
     }
 
+    function printPasien() {
+      window.open('Laporan/lap.data.pasien.php', 'laporanPasien', 'height=300,width=500');
+
+    }
+
     function printPetugas() {
       window.open('Laporan/lap.data.petugas.php', 'laporanPasien', 'height=300,width=500');
 
@@ -653,7 +658,11 @@ require_once('config/config.php');
       window.open('Laporan/lap.data.peminjam.php', 'laporanPasien', 'height=300,width=500');
     }
 
-    function printPendaftarPasien() {
+    function printPeminjaman() {
+      window.open('Laporan/lap.data.peminjaman.php', 'laporanPasien', 'height=300,width=500');
+    }
+
+    function printPendaftaranPasien() {
       window.open('Laporan/lap.data.pendaftaranpasien.php', 'laporanPasien', 'height=300,width=500');
     }
 
@@ -676,6 +685,9 @@ require_once('config/config.php');
 
     function printKeterlambatan() {
       window.open('Laporan/lap.data.keterlambatan.php', 'laporanPasien', 'height=300,width=500');
+    }
+    function printRetensi() {
+      window.open('Laporan/lap.data.retensi.php', 'laporanPasien', 'height=300,width=500');
     }
   </script>
 </body>

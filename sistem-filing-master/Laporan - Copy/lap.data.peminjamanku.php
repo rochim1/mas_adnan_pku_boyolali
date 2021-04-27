@@ -2,26 +2,28 @@
 session_start();
 include('../config/config.php');
 include('header.php');
+
 ?>
+<link href="../assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
-
-<div class="container">
+<div class="container" style="margin-top:20px">
   <center>
-    <font size="6">Laporan Data Pendaftaran Pasien</font>
+    <font size="6">Laporan Data Peminjamanku</font>
   </center>
   <hr>
 </div>
 <div class="table-responsive mt-2">
-  <table aria-label="Data peminjam" id="myTable" class="table table-striped jambo_table bulk_action">
+  <table aria-label="Laporan Data Peminjaman" id="myTable" class="table table-striped jambo_table bulk_action">
     <thead>
       <tr>
         <th>No</th>
+        <th>kd Pinjam</th>
         <th>No RM</th>
         <th>Nama Pasien</th>
-        <th>Jen kel</th>
-        <th>Alamat</th>
-        <th>No Telp</th>
-        <th>Keterangan</th>
+        <th>Tujuan Pinjam</th>
+        <th>Lokasi Pinjam</th>
+        <th>tgl Hrs Kembali</th>
+        <th>Kd Petugas</th>
       </tr>
     </thead>
     <tbody>
@@ -30,11 +32,12 @@ include('header.php');
         $dari = $_POST['dari'];
         $sampai = $_POST['sampai'];
         // echo $dari.$sampai;
-        $sql = mysqli_query($koneksi, "SELECT * FROM peminjam WHERE tgl_daftar BETWEEN '$dari' AND '$sampai' ORDER BY kd_peminjam ASC") or die(mysqli_error($koneksi));
+        $sql = mysqli_query($koneksi, "SELECT * FROM peminjaman WHERE tgl_pinjam BETWEEN '$dari' AND '$sampai' ORDER BY no_pinjam ASC") or die(mysqli_error($koneksi));
       } else {
         // echo "tidak dari sampai";
+        $kd_peminjam = $_SESSION['kd_peminjam'];
         //query ke database SELECT tabel mahasiswa urut berdasarkan id yang paling besar
-        $sql = mysqli_query($koneksi, "SELECT * FROM pasien ORDER BY no_rm ASC") or die(mysqli_error($koneksi));
+        $sql = mysqli_query($koneksi, "SELECT * FROM peminjaman where kd_peminjam = '$kd_peminjam' ORDER BY no_pinjam ASC") or die(mysqli_error($koneksi));
         //jika query diatas menghasilkan nilai > 0 maka menjalankan script di bawah if...
       }
 
@@ -48,13 +51,13 @@ include('header.php');
           echo '
               <tr>
                 <td>' . $no++ . '</td>
+                <td>' . $data['no_pinjam'] . '</td>
                 <td>' . $data['no_rm'] . '</td>
                 <td>' . $data['nm_pasien'] . '</td>
-                <td>' . $data['jenis_klm'] . '</td>
-                <td>' . $data['alamat'] . '</td>
-                <td>' . $data['no_telp'] . '</td>
-                <td>' . $data['tgl_daftar'] . '</td>
-                
+                <td>' . $data['tujuan_pinjam'] . '</td>
+                <td>' . $data['lokasi_pinjam'] . '</td>
+                <td>' . $data['tanggal_hrs_kmb'] . '</td>
+                <td>' . $data['kd_petugas'] . '</td>                
               </tr>
               ';
           // $no++;
@@ -70,8 +73,11 @@ include('header.php');
       ?>
     <tbody>
   </table>
-  <?php include 'footer.php';
-  ?>
 </div>
 
 </div>
+
+
+<script>
+window.print();
+</script>

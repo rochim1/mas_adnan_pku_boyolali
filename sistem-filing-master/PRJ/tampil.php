@@ -52,7 +52,7 @@ include('/config/config.php');
 
 							<td>
 								<a href="dashboard.php?page=edit_pasien_PRJ&no_rm=' . $data['no_rm'] . '" class="btn btn-secondary btn-sm">Edit</a>
-								<a href="dashboard.php?page=delete_pasien_PRJ&no_rm=' . $data['no_rm'] . '" class="btn btn-danger btn-sm" onclick="return confirm(\'Yakin ingin menghapus data ini?\')">Delete</a>
+								<a href="dashboard.php?page=delete_pasien_PRJ&no_rm=' . $data['no_rm'] . '" class="btn btn-danger btn-sm" onclick="return confirm(\'jika ada data yang berkaitan pada transaksi peminjaman akan dihapus juga , Yakin ingin menghapus data ini??\')">Delete</a>
 							</td>
 						</tr>
 						';
