@@ -21,6 +21,7 @@ include('/config/config.php');
 			<thead>
 				<tr>
 					<th>No</th>
+					<th>No RM</th>
 					<th>Nama Pasien</th>
 					<th>Tempat Tanggal Lahir</th>
 					<th>Jenis Kelamin</th>
@@ -36,7 +37,7 @@ include('/config/config.php');
 
 				$tahun = date('Y-m-d', strtotime(' -5 years'));
 
-				$sql = mysqli_query($koneksi, "SELECT * FROM pasien where recent_use <= '$tahun'") or die(mysqli_error($koneksi));
+				$sql = mysqli_query($koneksi, "SELECT * FROM pasien where recent_use <= '$tahun' AND status = true") or die(mysqli_error($koneksi));
 				if (mysqli_num_rows($sql) > 0) {
 					while ($data = mysqli_fetch_assoc($sql)) {
 
@@ -50,32 +51,38 @@ include('/config/config.php');
 						$jenis_klm = $data['jenis_klm'];
 						$tgl_daftar = $data['tgl_daftar'];
 						$tgl_retensi = date('Y-m-d');	
+						$status = true;
 
 						$sql2 = mysqli_query($koneksi, "SELECT * FROM retensi WHERE no_rm ='$no_rm'") or die(mysqli_error($koneksi));
 
 						if (mysqli_num_rows($sql2) == 0) {
-							$sql = mysqli_query($koneksi, "INSERT INTO retensi VALUES('$no_rm','$nm_pasien','$tgl_lahir','$alamat','$no_telpon','$pekerjaan','$tmp_lahir','$jenis_klm','$tgl_daftar','$tgl_retensi','') ") or die(mysqli_error($koneksi));
-
-
-							// mysqli_query($koneksi, "ALTER TABLE peminjaman NOCHECK CONSTRAINT pasien") or die(mysqli_error($koneksi));
-							// mysqli_query($koneksi, "ALTER TABLE pinjam_kembali NOCHECK CONSTRAINT pasien_fk") or die(mysqli_error($koneksi));
-							mysqli_query($koneksi, "SET FOREIGN_KEY_CHECKS = 0") or die(mysqli_error($koneksi));
 							
-							$delete = mysqli_query($koneksi, "DELETE FROM pasien WHERE no_rm ='$no_rm'") or die(mysqli_error($koneksi));
-							// kelemahan sistem = peggunaan no RM yang tidak unik 
-							$delete = mysqli_query($koneksi, "DELETE FROM peminjaman WHERE no_rm ='$no_rm'") or die(mysqli_error($koneksi));
-							$delete = mysqli_query($koneksi, "DELETE FROM pinjam_kembali WHERE no_rm ='$no_rm'") or die(mysqli_error($koneksi));
+							// >>>>>>>>>>>>>>>>>>>>>>>>>>>>delete>>>>>>>>>>>>>>>>>>
+							// // mysqli_query($koneksi, "ALTER TABLE peminjaman NOCHECK CONSTRAINT pasien") or die(mysqli_error($koneksi));
+							// // mysqli_query($koneksi, "ALTER TABLE pinjam_kembali NOCHECK CONSTRAINT pasien_fk") or die(mysqli_error($koneksi));
+							// mysqli_query($koneksi, "SET FOREIGN_KEY_CHECKS = 0") or die(mysqli_error($koneksi));
 							
-							mysqli_query($koneksi, "SET FOREIGN_KEY_CHECKS = 1") or die(mysqli_error($koneksi));
-							// mysqli_query($koneksi, "ALTER TABLE peminjaman CHECK CONSTRAINT pasien") or die(mysqli_error($koneksi));
-							// mysqli_query($koneksi, "ALTER TABLE pinjam_kembali CHECK CONSTRAINT pasien_fk") or die(mysqli_error($koneksi));
+							// $delete = mysqli_query($koneksi, "DELETE FROM pasien WHERE no_rm ='$no_rm'") or die(mysqli_error($koneksi));
+							// $delete = mysqli_query($koneksi, "DELETE FROM peminjaman WHERE no_rm ='$no_rm'") or die(mysqli_error($koneksi));
+							// $delete = mysqli_query($koneksi, "DELETE FROM pinjam_kembali WHERE no_rm ='$no_rm'") or die(mysqli_error($koneksi));
+							
+							// mysqli_query($koneksi, "SET FOREIGN_KEY_CHECKS = 1") or die(mysqli_error($koneksi));
+							// // mysqli_query($koneksi, "ALTER TABLE peminjaman CHECK CONSTRAINT pasien") or die(mysqli_error($koneksi));
+							// // mysqli_query($koneksi, "ALTER TABLE pinjam_kembali CHECK CONSTRAINT pasien_fk") or die(mysqli_error($koneksi));
+							// >>>>>>>>>>>>>>>>>>>>>>>>>>>>delete>>>>>>>>>>>>>>>>>>
+							
+							$update = mysqli_query($koneksi, "UPDATE pasien SET status = false WHERE no_rm ='$no_rm'") or die(mysqli_error($koneksi));
+							// $update = mysqli_query($koneksi, "UPDATE peminjaman SET status = false WHERE no_rm ='$no_rm'") or die(mysqli_error($koneksi));
+							// $update = mysqli_query($koneksi, "UPDATE pinjam_kembali SET status = false WHERE no_rm ='$no_rm'") or die(mysqli_error($koneksi));
+							$sql = mysqli_query($koneksi, "INSERT INTO retensi (no_rm,nm_pasien,tgl_lahir,alamat,no_telp,pekerjaan,tmp_lahir,jenis_klm,tgl_daftar,tgl_retensi,tgl_restore,status) VALUES ('$no_rm','$nm_pasien','$tgl_lahir','$alamat','$no_telpon','$pekerjaan','$tmp_lahir','$jenis_klm','$tgl_daftar','$tgl_retensi','','$status') ") or die(mysqli_error($koneksi));
+
 						} else {
 							echo "data uptodate";
 						}
-					}
+					} 	
 				}
 
-				$sql = mysqli_query($koneksi, "SELECT * FROM retensi ORDER BY no_rm ASC") or die(mysqli_error($koneksi));
+				$sql = mysqli_query($koneksi, "SELECT * FROM retensi WHERE status = true ORDER BY no_rm ASC") or die(mysqli_error($koneksi));
 				//jika query diatas menghasilkan nilai > 0 maka menjalankan script di bawah if...
 				if (mysqli_num_rows($sql) > 0) {
 					//membuat variabel $no untuk menyimpan nomor urut
@@ -86,6 +93,7 @@ include('/config/config.php');
 						echo '
 						<tr>
 							<td>' . $no++ . '</td>
+							<td>' . $data['no_rm'] . '</td>
 							<td>' . $data['nm_pasien'] . '</td>
 							<td>' . $data['tmp_lahir'] . ' ' . $data['tgl_lahir'] . ' </td>
 							<td>' . $data['jenis_klm'] . '</td>

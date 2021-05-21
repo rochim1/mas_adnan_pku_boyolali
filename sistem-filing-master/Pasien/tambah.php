@@ -5,31 +5,19 @@
 		<?php
 
 			$no_rm = mysqli_query($koneksi, "SELECT no_rm FROM pasien");
-			// $max = mysqli_query($koneksi, "SELECT MAX(no_rm) FROM pasien");
+			$no_pasien = mysqli_query($koneksi, "SELECT * FROM kode_terakhir") or die(mysqli_error($koneksi));
 			
-			// if (mysqli_num_rows($no_rm) == 0) {
-			// 	$no_rm = 'RM000001';	
-			// }else {
-				
-			// 	$last_rm = false;
-			// 	foreach ($no_rm as $key => $value) {
-			// 		$last_rm = $value['no_rm'];
-			// 	}
-			// 	(int)$last_rm = substr($last_rm, 2);  
-			// 	$last_rm++;
-			// 	$num_padded = sprintf("%06d", $last_rm);
-			// 	(string)$no_rm = "RM".$num_padded;
-			// }
-
 			if (mysqli_num_rows($no_rm) == 0) {
-				$no_rm = 'RM' . date("dm").'01';	
+				$no_rm = 'RM' . date("dm").'01';
+				$sql_lscode = mysqli_query($koneksi, "UPDATE kode_terakhir SET kode_terakhir_pasien = '$no_rm'") or die(mysqli_error($koneksi));
 			}else {
 				
 				$last_rm = false;
-				foreach ($no_rm as $key => $value) {
-					$last_rm = $value['no_rm'];
+				foreach ($no_pasien as $key => $value) {
+					$last_rm = $value['kode_terakhir_pasien'];
 				}
-				(int)$last_rm = substr($last_rm, 2);  
+				(int)$last_rm = substr($last_rm, 6);
+				// echo "last rm : ".$last_rm;  
 				$last_rm++;
 				$num_padded = sprintf("%02d", $last_rm);
 				(string)$no_rm = "RM".date("dm").$num_padded;
@@ -54,6 +42,7 @@
 
 			if(mysqli_num_rows($cek) == 0){
 				$sql = mysqli_query($koneksi, "INSERT INTO pasien(no_rm, nm_pasien, tgl_lahir, alamat,no_telp,pekerjaan,tmp_lahir,jenis_klm,tgl_daftar,recent_use,status) VALUES('$no_rm', '$nm_pasien', '$tgl_lahir', '$alamat', '$no_telp', '$pekerjaan', '$tmp_lahir', '$jenis_klm','$hari_ini','$hari_ini','$status')") or die(mysqli_error($koneksi));
+				$sql_lscode = mysqli_query($koneksi, "UPDATE kode_terakhir SET kode_terakhir_pasien = '$no_rm'") or die(mysqli_error($koneksi));
 
 				if($sql){
 					echo '<script>alert("Berhasil menambahkan data."); document.location="dashboard.php?page=tampil_pasien";</script>';

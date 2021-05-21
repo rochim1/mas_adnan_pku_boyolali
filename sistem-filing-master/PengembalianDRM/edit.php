@@ -9,21 +9,24 @@
 
 	<?php
 	//jika sudah mendapatkan parameter GET id dari URL
+	$no_pinjam = false;
 	if (isset($_GET['kd_pinjam_kembali'])) {
 		//membuat variabel $id untuk menyimpan id dari GET id di URL
 		$kd_pinjam_kembali = $_GET['kd_pinjam_kembali'];
 
 		//query ke database SELECT tabel mahasiswa berdasarkan id = $id
 		$select = mysqli_query($koneksi, "SELECT * FROM pinjam_kembali WHERE kd_pinjam_kembali='$kd_pinjam_kembali'") or die(mysqli_error($koneksi));
-
+		
 		//jika hasil query = 0 maka muncul pesan error
 		if (mysqli_num_rows($select) == 0) {
 			echo '<div class="alert alert-warning">Nomor pinjam kembali tidak ada dalam database.</div>';
+			
 			exit();
 			//jika hasil query > 0
 		} else {
 			//membuat variabel $data dan menyimpan data row dari query
 			$data = mysqli_fetch_assoc($select);
+			$no_pinjam = $data['no_pinjam'];
 		}
 	}
 	?>
@@ -33,12 +36,16 @@
 	if (isset($_POST['submit'])) {
 		$no_rm = $_POST['no_rm'];
 		$sql = mysqli_query($koneksi, "SELECT * FROM pasien where no_rm = '$no_rm'") or die(mysqli_error($koneksi));
-
+		
 		while ($pecah = $sql->fetch_assoc()) {
 			$bungkus[] = $pecah;
 		}
+		// todo
+		// $sql = mysqli_query($koneksi, "SELECT * FROM peminjaman where no_pinjam = '$no_'") or die(mysqli_error($koneksi));
+		// $no_pinjam	= $bungkus['no_pinjam'];
 
 		$kd_pinjam_kembali	= $_POST['kd_pinjam_kembali'];
+		
 		$tgl_pinjam	= $_POST['tgl_pinjam'];
 		$kd_petugas = $_POST['kd_petugas'];
 		$kd_peminjam = $_POST['kd_peminjam'];
@@ -54,35 +61,17 @@
 		if ($status_pjm == 'berlangsung') {
 			$sql = mysqli_query($koneksi, "SELECT * FROM pinjam_kembali WHERE kd_pinjam_kembali ='$kd_pinjam_kembali'") or die(mysqli_error($koneksi));
 			if ($sql) {
-
-				$peminjaman = mysqli_query($koneksi, "SELECT no_pinjam FROM peminjaman");
-
-				if (mysqli_num_rows($peminjaman) == 0) {
-					// echo "1";
-					$peminjaman = 'PM001';
-				} else {
-					$last_kd = false;
-					foreach ($peminjaman as $key => $value) {
-						$last_kd = $value['no_pinjam'];
-					}
-					(int)$last_kd = substr($last_kd, 2);
-					$last_kd++;
-					$num_padded = sprintf("%03d", $last_kd);
-					(string)$peminjaman = "PM" . $num_padded;
-				}
-				// echo $peminjaman;
-
-				$sql = 	mysqli_query($koneksi, "INSERT INTO peminjaman
-				VALUES('$peminjaman','$kd_peminjam','$tgl_pinjam','$kd_petugas','$tujuan_pinjam','$lokasi_pinjam','$tanggal_hrs_kmb','$no_rm','$nm_pasien','$tgl_lahir')") or die(mysqli_error($koneksi));
-				if ($sql) {
-					$hapus_peminjaman = mysqli_query($koneksi, "DELETE FROM pinjam_kembali WHERE kd_pinjam_kembali = '$kd_pinjam_kembali'");
-					if ($hapus_peminjaman) {
-
+				// echo 'no pinjam = '.$no_pinjam."<br>";
+				$sql_lscode = mysqli_query($koneksi, "UPDATE peminjaman SET status = true WHERE no_pinjam = '$no_pinjam'") or die(mysqli_error($koneksi));
+				$hapus_peminjaman = mysqli_query($koneksi, "DELETE FROM pinjam_kembali WHERE kd_pinjam_kembali = '$kd_pinjam_kembali'");
+				
+				if ($sql_lscode) {
+					
 						echo '<script>alert("Berhasil menyimpan data."); document.location="dashboard.php?page=tampil_pengembalian_DRM";</script>';
-					}
-				} else {
+					}else
+					{
 					echo "gagal insert dan delete";
-				}
+					}
 			}
 		} else {
 
@@ -225,9 +214,7 @@
 
 
 				</div>
-				<div class="p-1 small text-danger">
-					memindahkan data ke table peminjaman dapat merubah(memperbarui) id no peminjaman harap diperhatikan!
-				</div>
+				
 			</div>
 		</div>
 

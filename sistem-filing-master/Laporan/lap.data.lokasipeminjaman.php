@@ -7,12 +7,12 @@ include('header.php');
 
 <div class="container">
   <center>
-    <font size="6">Laporan Data Lokasi Pinjam</font>
+    <font size="4">Laporan Data Lokasi Pinjam</font>
   </center>
   <hr>
 
   <div class="table-responsive mt-2">
-    <table aria-label="Laporan Data Lokasi Pinjam" id="myTable" class="table table-striped jambo_table bulk_action">
+    <table aria-label="Laporan Data Lokasi Pinjam" id="myTable" class="table table-bordered jambo_table bulk_action">
       <thead>
         <tr>
           <th>No</th>

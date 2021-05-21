@@ -27,10 +27,10 @@
 		
 		$koneksi = mysqli_connect(HOST,DB_USER,DB_PASS,DB_NAME);
 		
-		if(!$koneksi)
-		{
-			die(mysqli_error());
-}
+		// if(!$koneksi)
+		// {
+		// 	die(mysqli_error());
+		// }
 
 
 
