@@ -18,7 +18,8 @@ include('/config/config.php');
 			<thead>
 				<tr>
 					<th>No</th>
-					<th>KD Pinjam</th>
+					<th>KD pengembalian</th>
+					<th>KD Peminjaman</th>
 					<th>Tanggal Pinjam</th>
 					<th>Kode Petugas</th>
 					<th>Tujuan Pinjam</th>
@@ -46,6 +47,7 @@ include('/config/config.php');
 						
 						echo'>
 							<td>' . $no++ . '</td>
+							<td>' . $data['kd_pinjam_kembali'] . '</td>
 							<td>' . $data['no_pinjam'] . '</td>
 							<td>' . date("d M Y", strtotime($data['tgl_pinjam'])) . '</td>
 							

@@ -6,14 +6,16 @@
 <hr>
 <?php
 
-$no_pm = mysqli_query($koneksi, "SELECT * FROM peminjaman") or die(mysqli_error($koneksi));
+$no_pm = mysqli_query($koneksi, "SELECT * FROM kode_terakhir") or die(mysqli_error($koneksi));
 if (mysqli_num_rows($no_pm) == 0) {
-	$no_pm = 'PJ001';
+	$no_pm = 'PM001';
+	echo "tambah data awal";
 } else {
 	$last_pm = false;
 	foreach ($no_pm as $key => $value) {
-		$last_pm = $value['no_pinjam'];
+		$last_pm = $value['kode_terakhir_peminjaman'];
 	}
+	echo "nomor terakhir : ".$last_pm;
 	(int)$last_pm = substr($last_pm, 2);
 	$last_pm++;
 	$num_padded = sprintf("%03d", $last_pm);
@@ -41,6 +43,7 @@ if (isset($_POST['submit'])) {
 		$no_rm	= $no_rm;
 		$nm_pasien		= $bungkus[0]['nm_pasien'];
 		$tgl_lahir		= $bungkus[0]['tgl_lahir'];
+		$status = 1;
 	}
 
 	$hari_ini = date("Y-m-d");
@@ -48,9 +51,8 @@ if (isset($_POST['submit'])) {
 
 	$cek = mysqli_query($koneksi, "SELECT * FROM peminjaman WHERE no_pinjam='$no_pinjam'") or die(mysqli_error($koneksi));
 	if (mysqli_num_rows($cek) == 0) {
-		$sql = mysqli_query($koneksi, "INSERT INTO peminjaman (no_pinjam,kd_peminjam, tgl_pinjam, kd_petugas, tujuan_pinjam, lokasi_pinjam, tanggal_hrs_kmb, no_rm, nm_pasien, tgl_lahir) VALUES('$no_pinjam','$kd_peminjam', '$tgl_pinjam', '$kd_petugas', '$tujuan_pinjam','$lokasi_pinjam','$tanggal_hrs_kmb','$no_rm','$nm_pasien','$tgl_lahir')") or die(mysqli_error($koneksi));
-		
-
+		$sql = mysqli_query($koneksi, "INSERT INTO peminjaman (no_pinjam,kd_peminjam, tgl_pinjam, kd_petugas, tujuan_pinjam, lokasi_pinjam, tanggal_hrs_kmb, no_rm, nm_pasien, tgl_lahir, status) VALUES('$no_pinjam','$kd_peminjam', '$tgl_pinjam', '$kd_petugas', '$tujuan_pinjam','$lokasi_pinjam','$tanggal_hrs_kmb','$no_rm','$nm_pasien','$tgl_lahir','$status')") or die(mysqli_error($koneksi));
+	
 		if ($sql) {
 			echo '<script>alert("Berhasil menambahkan data."); document.location="dashboard.php?page=tampil_peminjaman_DRM";</script>';
 		} else {
@@ -143,7 +145,7 @@ if (isset($_POST['submit'])) {
 	<div class="item form-group">
 		<label class="col-form-label col-md-3 col-sm-3 label-align">Nomor RM Pasien</label>
 		<div class="col-md-6 col-sm-6">
-			<select id="no_rm" name="no_rm" class="form-control">
+			<select id="no_rm" name="no_rm" class="form-control" required>
 				<option value="">pilih no rm</option>
 				<?php
 				$pasien = mysqli_query($koneksi, "SELECT * FROM pasien");

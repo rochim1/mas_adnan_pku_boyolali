@@ -8,6 +8,7 @@
 	<hr>
 
 	<?php
+	// echo"test";
 	//jika sudah mendapatkan parameter GET id dari URL
 	$data = false;
 	if (isset($_GET['no_pinjam'])) {
@@ -56,12 +57,12 @@
 		
 		if ($status_pjm == 'dikembalikan') {
 			$sql = mysqli_query($koneksi, "SELECT * FROM peminjaman WHERE no_pinjam ='$no_pinjam'") or die(mysqli_error($koneksi));
+			// echo"test1";
 			if ($sql) {
 				// echo "dikembalikan";
 				$pinjamKembali = mysqli_query($koneksi, "SELECT kd_pinjam_kembali FROM pinjam_kembali");
 
 				if (mysqli_num_rows($pinjamKembali) == 0) {
-					echo"1";
 					$pinjamKembali = 'PK001';
 				} else {
 					$last_kd = false;
@@ -78,14 +79,59 @@
 				$hari_ini = date("Y-m-d");
 				// echo $kd_peminjam . '<br>';
 				$sql = 	mysqli_query($koneksi, "INSERT INTO pinjam_kembali
-				VALUES('$pinjamKembali','$kd_peminjam','$tgl_pinjam','$kd_petugas','$tujuan_pinjam','$lokasi_pinjam','$hari_ini','$no_rm','$nm_pasien','$tgl_lahir','$status_pjm','')") or die(mysqli_error($koneksi));
+				VALUES('$pinjamKembali','$no_pinjam','$kd_peminjam','$tgl_pinjam','$kd_petugas','$tujuan_pinjam','$lokasi_pinjam','$hari_ini','$no_rm','$nm_pasien','$tgl_lahir','$status_pjm','')") or die(mysqli_error($koneksi));
+			
+				$cek_empty = mysqli_query($koneksi, "SELECT kode_terakhir_peminjaman FROM kode_terakhir");
+				$select_diedit = mysqli_query($koneksi, "SELECT * FROM peminjaman WHERE no_pinjam='$no_pinjam'") or die(mysqli_error($koneksi));
+
+				// jika data yang di edit berada pada posisi terbawah
+				
+				$select = mysqli_query($koneksi, "SELECT * FROM peminjaman ORDER BY no_pinjam DESC LIMIT 1") or die(mysqli_error($koneksi));
+
+				$select_ttl = mysqli_query($koneksi, "SELECT * FROM peminjaman") or die(mysqli_error($koneksi));
+				$total = mysqli_num_rows($select_ttl);
+
+				$posisi = 0; //posisi, ga penting sih
+				$select_diedit = mysqli_fetch_assoc($select_diedit);
+				$select = mysqli_fetch_assoc($select);
+				for ($i = 0; $i < $total; $i++) {
+					if ($select_diedit['no_pinjam'] == $select['no_pinjam'] ) {
+						// berarti last row
+						$kod = [];
+						while ($kod_akhir = mysqli_fetch_assoc($cek_empty)) {
+							$kod = array(
+								'kode_terakhir_peminjaman' => $kod_akhir['kode_terakhir_peminjaman'],
+							);
+							// echo "<br>".$kod_akhir['kode_terakhir_peminjaman']."<br>";
+						}
+
+						if ($hasil = empty($kod['kode_terakhir_peminjaman'])) {
+							// ini ga mungkin sih karena kalau mau edit walau awal pasti ada datanya dengan no_pinjam PM001
+							$sql_lscode = mysqli_query($koneksi, "INSERT INTO kode_terakhir (kode_terakhir_peminjaman) VALUES('$no_pinjam')") or die(mysqli_error($koneksi));
+						} else {
+							$sql_lscode = mysqli_query($koneksi, "UPDATE kode_terakhir SET kode_terakhir_peminjaman = '$no_pinjam'") or die(mysqli_error($koneksi));
+						}
+
+						$posisi = $posisi+$i;
+						$i = $total+1; //end looping
+					}
+				}
+				
+				
+				
+				
+				// print_r($kod['kode_terakhir_peminjaman']);
+				
+				
+
 				if ($sql) {
-					$hapus_peminjaman = mysqli_query($koneksi, "DELETE FROM peminjaman WHERE no_pinjam = '$no_pinjam'");
-					if ($hapus_peminjaman) {
+					// mau_dihapus atau pakai status ?
+					$update_peminjaman = mysqli_query($koneksi, "UPDATE peminjaman SET status = false where no_pinjam = '$no_pinjam'") or die(mysqli_error($koneksi));
+					// $hapus_peminjaman = mysqli_query($koneksi, "DELETE FROM peminjaman WHERE no_pinjam = '$no_pinjam'");
+					if ($update_peminjaman) {
 						echo '<script>alert("Berhasil menyimpan data."); document.location="dashboard.php?page=tampil_peminjaman_DRM";</script>';
 					}
-				}else{
-					
+				}else{	
 					echo "gagal insert dan delete";
 				}
 				

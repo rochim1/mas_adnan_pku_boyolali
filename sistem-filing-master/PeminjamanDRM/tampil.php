@@ -18,7 +18,7 @@ include('/config/config.php');
 			<thead>
 				<tr>
 					<th>No</th>
-					<th>KD pinjam</th>
+					<th>KD peminjaman</th>
 					<th>Tanggal Pinjam</th>
 					<th>Kode Petugas</th>
 					<th>Tujuan Pinjam</th>
@@ -32,7 +32,7 @@ include('/config/config.php');
 			<tbody>
 				<?php
 				//query ke database SELECT tabel mahasiswa urut berdasarkan id yang paling besar
-				$sql = mysqli_query($koneksi, "SELECT * FROM peminjaman") or die(mysqli_error($koneksi));
+				$sql = mysqli_query($koneksi, "SELECT * FROM peminjaman WHERE status = true") or die(mysqli_error($koneksi));
 				//jika query diatas menghasilkan nilai > 0 maka menjalankan script di bawah if...
 				if (mysqli_num_rows($sql) > 0) {
 					
