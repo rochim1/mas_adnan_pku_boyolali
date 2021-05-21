@@ -9,7 +9,7 @@ include('/config/config.php');
 		<font size="6">Transaksi Peminjamanku</font>
 	</center>
 	<hr>
-	<a href="dashboard.php?page=tambah_peminjaman_DRM"><button class="btn btn-dark right">Tambah Data</button></a>
+	<!-- <a href="dashboard.php?page=tambah_peminjaman_DRM"><button class="btn btn-dark right">Tambah Data</button></a> -->
 		
 		<!-- <button onclick="trig_print()" class="btn btn-primary right" on>Print</button> -->
 

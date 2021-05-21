@@ -6,16 +6,16 @@
 <hr>
 <?php
 
-$no_pm = mysqli_query($koneksi, "SELECT * FROM peminjaman where status_pjm ='berlangsung'") or die(mysqli_error($koneksi));
+$no_pm = mysqli_query($koneksi, "SELECT * FROM peminjaman where status = true ") or die(mysqli_error($koneksi));
 if (mysqli_num_rows($no_pm) !== 0) {
 	$data = $no_pm;
 }
 
 if (isset($_POST['submit'])) {
 	$no_pinjam	= $_POST['no_pinjam'];
-	$status_pjm	= "dikembalikan";
+	$status	= false;
 
-	$sql = mysqli_query($koneksi, "UPDATE peminjaman SET status_pjm='$status_pjm' WHERE no_pinjam ='$no_pinjam'") or die(mysqli_error($koneksi));
+	$sql = mysqli_query($koneksi, "UPDATE peminjaman SET status='$status' WHERE no_pinjam ='$no_pinjam'") or die(mysqli_error($koneksi));
 	if ($sql) {
 		echo '<script>alert("Berhasil menyimpan data."); document.location="dashboard.php?page=tampil_pengembalian_DRM";</script>';
 	} else {

@@ -138,7 +138,7 @@ CREATE TABLE `pinjam_kembali` (
   `no_rm` varchar(15) DEFAULT NULL,
   `nm_pasien` varchar(255) DEFAULT NULL,
   `tgl_lahir` datetime DEFAULT NULL,
-  `status_pjm` text NOT NULL DEFAULT 'berlangsung',
+  `status` text NOT NULL DEFAULT 'berlangsung',
   `kroscek` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

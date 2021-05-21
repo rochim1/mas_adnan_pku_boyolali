@@ -145,7 +145,7 @@ require_once('config/config.php');
                 <?php
                 }
 
-                if ($_SESSION['user_role_id'] != 1) {
+                if ($_SESSION['user_role_id'] != 1 and !$_SESSION['kd_peminjam']) {
                 ?>
                   <li><a><i class="fa fa-desktop"></i> Data Peminjam <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">

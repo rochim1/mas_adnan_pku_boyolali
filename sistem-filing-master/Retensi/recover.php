@@ -14,7 +14,7 @@ if(isset($_GET['no_rm'])){
 	if(mysqli_num_rows($cek) > 0){
 		$data = mysqli_fetch_assoc($cek);
 		$no_retensi = $data['no_retensi'];
-		print_r($no_retensi);
+		// print_r($no_retensi);
 		$hari_ini = date('Y-m-d');
 		$sql = mysqli_query($koneksi, "UPDATE pasien SET status = true, recent_use = '$hari_ini' WHERE no_rm ='$no_rm'") or die(mysqli_error($koneksi));
 		

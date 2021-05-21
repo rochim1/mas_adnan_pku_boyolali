@@ -9,9 +9,9 @@ include('/config/config.php');
 		<font size="6">Transaksi Pengembalianku</font>
 	</center>
 	<hr>
-	<a href="dashboard.php?page=tambah_pengembalian_DRM"><button class="btn btn-dark right">Tambah Data</button></a>
+	<!-- <a href="dashboard.php?page=tambah_pengembalian_DRM"><button class="btn btn-dark right">Tambah Data</button></a> -->
 		
-		<button onclick="trig_print()" class="btn btn-primary right" on>Print</button>
+		<!-- <button onclick="trig_print()" class="btn btn-primary right" on>Print</button> -->
 
 	<div class="table-responsive mt-2">
 		<table aria-label="Data Pengembalian" id="myTable" class="table table-striped jambo_table bulk_action">
@@ -32,7 +32,7 @@ include('/config/config.php');
 				<?php
 				//query ke database SELECT tabel mahasiswa urut berdasarkan id yang paling besar
 				$kd_peminjam = $_SESSION['kd_peminjam'];
-				$sql = mysqli_query($koneksi, "SELECT * FROM pinjam_kembali WHERE status_pjm = 'dikembalikan' AND kd_peminjam = '$kd_peminjam' ORDER BY kd_pinjam_kembali ASC") or die(mysqli_error($koneksi));
+				$sql = mysqli_query($koneksi, "SELECT * FROM pinjam_kembali WHERE status = 'dikembalikan' AND kd_peminjam = '$kd_peminjam' ORDER BY kd_pinjam_kembali ASC") or die(mysqli_error($koneksi));
 				//jika query diatas menghasilkan nilai > 0 maka menjalankan script di bawah if...
 				if (mysqli_num_rows($sql) > 0) {
 					
@@ -46,7 +46,7 @@ include('/config/config.php');
 						$hrs_kembali = date('Y-m-d', strtotime($data['tanggal_hrs_kmb']));
 						
 						$peringatan = false;
-					if ( $hrs_kembali < $hari_ini && $data['status_pjm'] == 'berlangsung') {
+					if ( $hrs_kembali < $hari_ini && $data['status'] == 'berlangsung') {
 						$peringatan = true;
 					}
 						echo '

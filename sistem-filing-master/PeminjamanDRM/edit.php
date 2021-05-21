@@ -48,14 +48,14 @@
 		$lokasi_pinjam	= $_POST['lokasi_pinjam'];
 		$tanggal_hrs_kmb	= $_POST['tanggal_hrs_kmb'];
 		$no_rm = $_POST['no_rm'];
-		$status_pjm = $_POST['status_pjm'];
+		$status = $_POST['status'];
 		$nm_pasien		= $bungkus[0]['nm_pasien'];
 		$tgl_lahir		= $bungkus[0]['tgl_lahir'];
 		
 
 		// echo $no_pinjam;
 		
-		if ($status_pjm == 'dikembalikan') {
+		if ($status == 'dikembalikan') {
 			$sql = mysqli_query($koneksi, "SELECT * FROM peminjaman WHERE no_pinjam ='$no_pinjam'") or die(mysqli_error($koneksi));
 			// echo"test1";
 			if ($sql) {
@@ -79,7 +79,7 @@
 				$hari_ini = date("Y-m-d");
 				// echo $kd_peminjam . '<br>';
 				$sql = 	mysqli_query($koneksi, "INSERT INTO pinjam_kembali
-				VALUES('$pinjamKembali','$no_pinjam','$kd_peminjam','$tgl_pinjam','$kd_petugas','$tujuan_pinjam','$lokasi_pinjam','$hari_ini','$no_rm','$nm_pasien','$tgl_lahir','$status_pjm','')") or die(mysqli_error($koneksi));
+				VALUES('$pinjamKembali','$no_pinjam','$kd_peminjam','$tgl_pinjam','$kd_petugas','$tujuan_pinjam','$lokasi_pinjam','$hari_ini','$no_rm','$nm_pasien','$tgl_lahir','$status','')") or die(mysqli_error($koneksi));
 			
 				$cek_empty = mysqli_query($koneksi, "SELECT kode_terakhir_peminjaman FROM kode_terakhir");
 				$select_diedit = mysqli_query($koneksi, "SELECT * FROM peminjaman WHERE no_pinjam='$no_pinjam'") or die(mysqli_error($koneksi));
@@ -265,15 +265,15 @@
 			<div class="col-md-6 col-sm-6">
 				<div class="btn-group" data-toggle="buttons">
 					<!-- <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-						<input type="radio" class="join-btn" name="status_pjm" value="berlangsung" required>Berlangsung
+						<input type="radio" class="join-btn" name="status" value="berlangsung" required>Berlangsung
 					</label> -->
 
 						<label class="btn btn-danger" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-							<input type="radio" class="join-btn" name="status_pjm" value="dikembalikan">Dikembalikan
+							<input type="radio" class="join-btn" name="status" value="dikembalikan">Dikembalikan
 						</label>
 
 					<!-- <label class="btn btn-danger" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-						<input type="radio" class="join-btn" name="status_pjm" value="Kadaluarsa" required>Kadaluarsa
+						<input type="radio" class="join-btn" name="status" value="Kadaluarsa" required>Kadaluarsa
 					</label> -->
 
 

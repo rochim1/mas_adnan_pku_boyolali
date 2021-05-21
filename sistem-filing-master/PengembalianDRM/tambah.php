@@ -53,13 +53,13 @@ if (isset($_POST['submit'])) {
 	$lokasi_pinjam	= $data_peminjaman['lokasi_pinjam'];
 	$tanggal_hrs_kmb	= $data_peminjaman['tanggal_hrs_kmb'];
 	$no_rm = $data_peminjaman['no_rm'];
-	$status_pjm = $data_peminjaman['status_pjm'];
+	$status = $data_peminjaman['status'];
 	$nm_pasien		= $bungkus[0]['nm_pasien'];
 	$tgl_lahir		= $bungkus[0]['tgl_lahir'];
 
 	$hari_ini = date("Y-m-d");
 	// echo $kd_peminjam . '<br>';
-	$sql = 	mysqli_query($koneksi, "INSERT INTO pinjam_kembali VALUES('$pinjamKembali','$no_pinjam','$kd_peminjam','$tgl_pinjam','$kd_petugas','$tujuan_pinjam','$lokasi_pinjam','$hari_ini','$no_rm','$nm_pasien','$tgl_lahir','$status_pjm','')") or die(mysqli_error($koneksi));
+	$sql = 	mysqli_query($koneksi, "INSERT INTO pinjam_kembali VALUES('$pinjamKembali','$no_pinjam','$kd_peminjam','$tgl_pinjam','$kd_petugas','$tujuan_pinjam','$lokasi_pinjam','$hari_ini','$no_rm','$nm_pasien','$tgl_lahir','$status','')") or die(mysqli_error($koneksi));
 
 	if ($sql) {
 		echo '<script>alert("Berhasil menyimpan data."); document.location="dashboard.php?page=tampil_pengembalian_DRM";</script>';

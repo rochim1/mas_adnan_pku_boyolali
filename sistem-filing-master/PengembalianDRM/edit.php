@@ -53,12 +53,12 @@
 		$lokasi_pinjam	= $_POST['lokasi_pinjam'];
 		$tanggal_hrs_kmb	= $_POST['tanggal_hrs_kmb'];
 		$no_rm = $_POST['no_rm'];
-		$status_pjm = $_POST['status_pjm'];
+		$status = $_POST['status'];
 		$nm_pasien		= $bungkus[0]['nm_pasien'];
 		$tgl_lahir		= $bungkus[0]['tgl_lahir'];
 
 
-		if ($status_pjm == 'berlangsung') {
+		if ($status == 'berlangsung') {
 			$sql = mysqli_query($koneksi, "SELECT * FROM pinjam_kembali WHERE kd_pinjam_kembali ='$kd_pinjam_kembali'") or die(mysqli_error($koneksi));
 			if ($sql) {
 				// echo 'no pinjam = '.$no_pinjam."<br>";
@@ -200,16 +200,16 @@
 			<div class="col-md-6 col-sm-6">
 				<div class="btn-group" data-toggle="buttons">
 					<label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-						<input type="radio" class="join-btn" name="status_pjm" value="berlangsung">Berlangsung
+						<input type="radio" class="join-btn" name="status" value="berlangsung">Berlangsung
 					</label>
 
 
 					<!-- <label class="btn btn-danger" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-						<input type="radio" class="join-btn" name="status_pjm" value="dikembalikan">Dikembalikan
+						<input type="radio" class="join-btn" name="status" value="dikembalikan">Dikembalikan
 					</label> -->
 
 					<!-- <label class="btn btn-danger" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-						<input type="radio" class="join-btn" name="status_pjm" value="Kadaluarsa" required>Kadaluarsa
+						<input type="radio" class="join-btn" name="status" value="Kadaluarsa" required>Kadaluarsa
 					</label> -->
 
 

@@ -37,7 +37,7 @@ include('header.php');
         // echo "tidak dari sampai";
         $kd_peminjam = $_SESSION['kd_peminjam'];
         //query ke database SELECT tabel mahasiswa urut berdasarkan id yang paling besar
-        $sql = mysqli_query($koneksi, "SELECT * FROM pinjam_kembali WHERE status_pjm = 'dikembalikan' AND kd_peminjam = '$kd_peminjam' ORDER BY kd_pinjam_kembali ASC") or die(mysqli_error($koneksi));
+        $sql = mysqli_query($koneksi, "SELECT * FROM pinjam_kembali WHERE status = 'dikembalikan' AND kd_peminjam = '$kd_peminjam' ORDER BY kd_pinjam_kembali ASC") or die(mysqli_error($koneksi));
         //jika query diatas menghasilkan nilai > 0 maka menjalankan script di bawah if...
       }
 
