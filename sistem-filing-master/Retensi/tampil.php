@@ -49,7 +49,7 @@ include('/config/config.php');
 						$tmp_lahir = $data['tmp_lahir'];
 						$jenis_klm = $data['jenis_klm'];
 						$tgl_daftar = $data['tgl_daftar'];
-						$tgl_retensi = date('Y-m-d');
+						$tgl_retensi = date('Y-m-d');	
 
 						$sql2 = mysqli_query($koneksi, "SELECT * FROM retensi WHERE no_rm ='$no_rm'") or die(mysqli_error($koneksi));
 
